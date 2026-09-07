@@ -1,0 +1,126 @@
+/* =========================================================
+   SLIDE 6 — FAIRi CONNECTS CHILD + PARENT
+========================================================= */
+
+.connection-layout {
+
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns: 0.9fr 1.1fr;
+
+    gap: 6vw;
+
+    align-items: center;
+}
+
+.connection-left {
+
+    padding-top: 20px;
+}
+
+.connection-left h2 {
+
+    margin-top: 35px;
+
+    max-width: 600px;
+
+    font-size: clamp(55px, 6vw, 95px);
+
+    line-height: 0.9;
+
+    letter-spacing: -5px;
+}
+
+.connection-left p {
+
+    margin-top: 30px;
+
+    max-width: 550px;
+
+    font-size: 19px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CONVERSATION
+========================================================= */
+
+.conversation {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    max-height: 650px;
+
+    overflow: hidden;
+}
+
+.chat-label {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,0.35);
+
+    margin-bottom: 2px;
+}
+
+.chat-message {
+
+    max-width: 570px;
+
+    padding: 15px 20px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.035);
+
+    font-size: 16px;
+
+    line-height: 1.45;
+}
+
+.chat-message.parent {
+
+    margin-left: auto;
+
+    border-right: 3px solid #66e6ff;
+}
+
+.chat-message.fairi {
+
+    border-left: 3px solid #66e6ff;
+
+    background:
+        rgba(102,230,255,0.035);
+}
+
+.chat-message.child {
+
+    margin-left: 35px;
+
+    color: rgba(255,255,255,0.75);
+}
+
+.chat-message .speaker {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #66e6ff;
+
+    margin-bottom: 6px;
+
+    text-transform: uppercase;
+}

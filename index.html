@@ -1,0 +1,2447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Fairi</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #050505;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    cursor: default;
+}
+
+
+/* =========================================================
+   PRESENTATION
+========================================================= */
+
+.presentation {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SLIDES
+========================================================= */
+
+.slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateX(30px);
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease,
+        visibility 0.45s ease;
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            rgba(255,255,255,0.025),
+            transparent 35%
+        ),
+        #050505;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+
+/* =========================================================
+   DECORATIVE CIRCLES
+========================================================= */
+
+.slide::before,
+.slide::after {
+    content: "";
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.slide::before {
+    width: 350px;
+    height: 350px;
+
+    top: -180px;
+    right: -80px;
+}
+
+.slide::after {
+    width: 300px;
+    height: 300px;
+
+    bottom: -180px;
+    left: -100px;
+}
+
+
+/* =========================================================
+   CONTENT SAFE AREA
+   THIS IS WHAT FIXES THE TITLE OVERLAP
+========================================================= */
+
+.content {
+    position: relative;
+    z-index: 5;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        7.5vh
+        5.3vw
+        7vh
+        5.3vw;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.eyebrow {
+    position: absolute;
+
+    top: 6vh;
+    left: 5.3vw;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    color: #66e6ff;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SLIDE NUMBER
+========================================================= */
+
+.slide-number {
+    position: absolute;
+
+    top: 6vh;
+    right: 4vw;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,0.35);
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+h1,
+h2,
+h3 {
+    font-weight: 900;
+}
+
+h1 {
+    font-size: clamp(80px, 10vw, 170px);
+    line-height: 0.86;
+    letter-spacing: -7px;
+}
+
+h2 {
+    font-size: clamp(52px, 6.5vw, 105px);
+    line-height: 0.9;
+    letter-spacing: -5px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.65);
+}
+
+.cyan {
+    color: #66e6ff;
+}
+
+
+/* =========================================================
+   FAIRI
+   ONE SINGLE LAYERED CHARACTER
+========================================================= */
+
+#fairi {
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    right: 55px;
+    bottom: 30px;
+
+    z-index: 9999;
+
+    transform-origin: bottom right;
+
+    pointer-events: none;
+
+    transition:
+        transform 0.45s cubic-bezier(.22,1,.36,1);
+}
+
+
+/* Slide 1 */
+
+#fairi.big {
+    transform: scale(1);
+}
+
+
+/* Slides 2–9 */
+
+#fairi.small {
+    transform: scale(0.36);
+}
+
+
+/* =========================================================
+   FAIRI LAYERS
+========================================================= */
+
+.fairi-layer {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: fill;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* =========================================================
+   FAIRI FLOAT
+========================================================= */
+
+#fairi {
+    animation:
+        fairiFloat 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes fairiFloat {
+
+    from {
+        margin-bottom: -5px;
+    }
+
+    to {
+        margin-bottom: 5px;
+    }
+}
+
+
+/* =========================================================
+   SLIDE 1 — MEET FAIRI
+========================================================= */
+
+.slide-one .content {
+    display: flex;
+    align-items: center;
+}
+
+.hero {
+    width: 62%;
+    margin-top: 2vh;
+}
+
+.hero h1 {
+    margin-top: 3vh;
+}
+
+.hero .subtitle {
+    max-width: 690px;
+    margin-top: 38px;
+
+    font-size: 22px;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   SLIDE 2 — THE PROBLEM
+========================================================= */
+
+.problem-layout {
+
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns: 0.82fr 1.18fr;
+
+    gap: 5vw;
+
+    align-items: center;
+
+    padding-top: 5vh;
+}
+
+.problem-left {
+    padding-top: 3vh;
+}
+
+.problem-left h2 {
+    max-width: 620px;
+    margin-top: 30px;
+}
+
+.problem-left p {
+    max-width: 580px;
+    margin-top: 35px;
+    font-size: 20px;
+}
+
+.problem-right {
+    padding-top: 4vh;
+}
+
+.big-words {
+
+    font-size: clamp(65px, 7.6vw, 130px);
+
+    font-weight: 900;
+
+    line-height: 0.84;
+
+    letter-spacing: -5px;
+}
+
+.big-words span {
+    display: block;
+}
+
+.problem-bottom {
+
+    max-width: 620px;
+
+    margin-top: 38px;
+
+    font-size: 18px;
+
+    line-height: 1.5;
+
+    color: rgba(255,255,255,0.62);
+}
+
+
+/* =========================================================
+   SLIDE 3 — WHAT IS FAIRI
+========================================================= */
+
+.idea-layout {
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding-bottom: 4vh;
+}
+
+.idea-layout h2 {
+    max-width: 1000px;
+    margin-top: 30px;
+}
+
+.idea-layout > p {
+    max-width: 760px;
+    margin-top: 35px;
+    font-size: 21px;
+}
+
+.idea-points {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    max-width: 1000px;
+
+    margin-top: 55px;
+}
+
+.idea-point {
+
+    padding: 24px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.025);
+}
+
+.idea-point h3 {
+    margin-bottom: 10px;
+}
+
+.idea-point p {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SLIDE 4 — HOW IT WORKS
+========================================================= */
+
+.how-layout {
+
+    height: 100%;
+
+    padding-top: 7vh;
+}
+
+.how-title {
+
+    display: grid;
+
+    grid-template-columns: auto auto;
+
+    column-gap: 35px;
+
+    row-gap: 2px;
+
+    width: fit-content;
+
+    max-width: 100%;
+
+    margin-top: 55px;
+
+    font-size: clamp(55px, 6.6vw, 105px);
+
+    line-height: 0.86;
+
+    letter-spacing: -5px;
+
+    font-weight: 900;
+}
+
+.how-title .line {
+    white-space: nowrap;
+}
+
+.how-title .cyan {
+    color: #66e6ff;
+}
+
+
+/* cards */
+
+.flow {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 65px;
+}
+
+.flow-card {
+
+    width: 175px;
+    min-height: 175px;
+
+    padding: 23px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    background: rgba(255,255,255,0.025);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.flow-number {
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    color: #66e6ff;
+
+    margin-bottom: 14px;
+}
+
+.flow-card h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 9px;
+}
+
+.flow-card p {
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.flow-arrow {
+
+    font-size: 25px;
+
+    color: rgba(255,255,255,0.28);
+}
+
+
+/* =========================================================
+   SLIDE 5 — TRADITIONAL VS FAIRI
+========================================================= */
+
+.compare-layout {
+
+    height: 100%;
+
+    padding-top: 7vh;
+}
+
+.compare-layout h2 {
+    margin-top: 55px;
+}
+
+.comparison {
+
+    width: 92%;
+
+    margin-top: 55px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.compare-column {
+
+    padding: 28px 35px 25px;
+
+    min-height: 390px;
+}
+
+.compare-column:first-child {
+
+    border-right: 1px solid rgba(255,255,255,0.15);
+}
+
+.compare-column h3 {
+    margin-bottom: 20px;
+}
+
+.compare-column.fairi-column h3 {
+    color: #66e6ff;
+}
+
+.compare-column ul {
+    list-style: none;
+}
+
+.compare-column li {
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+
+    font-size: 17px;
+
+    color: rgba(255,255,255,0.62);
+}
+
+.compare-column.fairi-column li {
+    color: #fff;
+}
+
+
+/* =========================================================
+   SLIDE 6 — CONNECTION / SCHOOL
+========================================================= */
+
+.connection-layout {
+
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    gap: 5vw;
+
+    align-items: center;
+
+    padding-top: 4vh;
+}
+
+.connection-left {
+    padding-top: 2vh;
+}
+
+.connection-left h2 {
+
+    margin-top: 30px;
+
+    max-width: 570px;
+}
+
+.connection-left > p {
+
+    margin-top: 32px;
+
+    max-width: 520px;
+
+    font-size: 18px;
+}
+
+
+/* conversation */
+
+.conversation {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    max-height: 76vh;
+
+    overflow: hidden;
+}
+
+.chat-label {
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,0.35);
+
+    margin-bottom: 4px;
+}
+
+.chat-message {
+
+    max-width: 590px;
+
+    padding: 12px 17px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.035);
+
+    font-size: 14px;
+
+    line-height: 1.42;
+}
+
+.chat-message.parent {
+
+    margin-left: auto;
+
+    border-right: 3px solid #66e6ff;
+}
+
+.chat-message.fairi {
+
+    border-left: 3px solid #66e6ff;
+
+    background: rgba(102,230,255,0.035);
+}
+
+.chat-message.child {
+
+    margin-left: 25px;
+
+    color: rgba(255,255,255,0.78);
+}
+
+.speaker {
+
+    display: block;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color: #66e6ff;
+
+    margin-bottom: 4px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SLIDE 7 — INTELLIGENCE
+========================================================= */
+
+.intelligence-layout {
+
+    height: 100%;
+
+    padding-top: 7vh;
+}
+
+.intelligence-layout h2 {
+    margin-top: 55px;
+}
+
+.architecture {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 60px;
+}
+
+.arch-card {
+
+    min-height: 220px;
+
+    padding: 27px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    background: rgba(255,255,255,0.025);
+}
+
+.arch-card .icon {
+
+    font-size: 31px;
+
+    margin-bottom: 23px;
+
+    color: #66e6ff;
+}
+
+.arch-card h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 12px;
+}
+
+.arch-card p {
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SLIDE 8 — WHY DIFFERENT
+========================================================= */
+
+.difference-layout {
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding-bottom: 4vh;
+}
+
+.difference-layout h2 {
+    max-width: 900px;
+}
+
+.four-pillars {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+
+    width: 850px;
+
+    max-width: 90%;
+
+    margin-top: 55px;
+}
+
+.pillar {
+
+    padding: 23px 27px;
+
+    border-left: 3px solid #66e6ff;
+
+    background: rgba(255,255,255,0.025);
+}
+
+.pillar h3 {
+    margin-bottom: 8px;
+}
+
+.pillar p {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SLIDE 9 — TEAM
+========================================================= */
+
+.team-layout {
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.team-layout h2 {
+    margin-top: 35px;
+    margin-bottom: 45px;
+}
+
+.team-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    max-width: 1000px;
+}
+
+.team-member {
+
+    padding: 20px 0;
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.team-member h3 {
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation {
+
+    position: fixed;
+
+    bottom: 24px;
+    left: 34px;
+
+    z-index: 10000;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,0.3);
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.dots {
+
+    position: fixed;
+
+    bottom: 24px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10000;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.dot {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.25);
+
+    transition:
+        width 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.dot.active {
+
+    width: 30px;
+
+    border-radius: 20px;
+
+    background: #66e6ff;
+
+    box-shadow:
+        0 0 15px rgba(102,230,255,0.6);
+}
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+.fairi-startup {
+
+    animation:
+        fairiStartup 330ms cubic-bezier(.22,1,.36,1) forwards,
+        fairiFloat 1.2s ease-in-out 330ms infinite alternate;
+}
+
+@keyframes fairiStartup {
+
+    0% {
+        transform: scale(0);
+    }
+
+    55% {
+        transform: scale(1.08);
+    }
+
+    80% {
+        transform: scale(0.96);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    #fairi.small {
+        transform: scale(0.28);
+    }
+
+    .flow {
+        transform: scale(0.82);
+        transform-origin: left center;
+    }
+
+    .architecture {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .problem-layout,
+    .connection-layout {
+        gap: 3vw;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="presentation">
+
+
+<!-- =====================================================
+     GLOBAL LAYERED FAIRI
+     DO NOT DUPLICATE THIS
+===================================================== -->
+
+<div id="fairi" class="big fairi-startup">
+
+    <img
+        class="fairi-layer body"
+        src="Fairi Visual Assets/fairi_body.png"
+    >
+
+    <img
+        class="fairi-layer hand-left"
+        src="Fairi Visual Assets/fairi_hand_left.png"
+    >
+
+    <img
+        class="fairi-layer hand-right"
+        src="Fairi Visual Assets/fairi_hand_right.png"
+    >
+
+    <img
+        class="fairi-layer display"
+        src="Fairi Visual Assets/fairi_display.png"
+    >
+
+    <img
+        class="fairi-layer display-highlight"
+        src="Fairi Visual Assets/fairi_highlight.png"
+    >
+
+    <img
+        class="fairi-layer eye-left"
+        src="Fairi Visual Assets/fairi_eye_left.png"
+    >
+
+    <img
+        class="fairi-layer eye-right"
+        src="Fairi Visual Assets/fairi_eye_right.png"
+    >
+
+    <img
+        class="fairi-layer body-highlight"
+        src="Fairi Visual Assets/fairi_body_highlight.png"
+    >
+
+    <img
+        class="fairi-layer eye-left-highlight"
+        src="Fairi Visual Assets/fairi_eye_left_highlight.png"
+    >
+
+    <img
+        class="fairi-layer eye-right-highlight"
+        src="Fairi Visual Assets/fairi_eye_right_highlight.png"
+    >
+
+</div>
+
+
+
+<!-- =====================================================
+     01 — MEET FAIRI
+===================================================== -->
+
+<section class="slide active slide-one">
+
+    <div class="content">
+
+        <div class="eyebrow">
+            01 / INTRODUCTION
+        </div>
+
+        <div class="slide-number">
+            01 / 09
+        </div>
+
+        <div class="hero">
+
+            <h1>
+                Meet<br>
+                <span class="cyan">Fairi.</span>
+            </h1>
+
+            <p class="subtitle">
+                An AI-powered digital wellbeing companion
+                that understands the child behind the screen.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     02 — THE PROBLEM
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content">
+
+        <div class="eyebrow">
+            02 / THE PROBLEM
+        </div>
+
+        <div class="slide-number">
+            02 / 09
+        </div>
+
+
+        <div class="problem-layout">
+
+            <div class="problem-left">
+
+                <h2>
+                    Parents can
+                    <span class="cyan">control</span>
+                    screens.
+                </h2>
+
+                <p>
+                    But controlling a device isn't the same
+                    as understanding a child.
+                </p>
+
+            </div>
+
+
+            <div class="problem-right">
+
+                <div class="big-words">
+
+                    <span>BLOCK.</span>
+                    <span>LIMIT.</span>
+                    <span>REPORT.</span>
+
+                </div>
+
+                <div class="problem-bottom">
+
+                    Traditional parental controls mainly react
+                    to <strong>what happens on the screen.</strong>
+                    They rarely understand
+                    <strong>why the child is doing it.</strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     03 — WHAT IS FAIRI
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content">
+
+        <div class="eyebrow">
+            03 / THE IDEA
+        </div>
+
+        <div class="slide-number">
+            03 / 09
+        </div>
+
+
+        <div class="idea-layout">
+
+            <h2>
+                Fairi doesn't just
+                <span class="cyan">control.</span>
+            </h2>
+
+            <p>
+                Fairi understands context, remembers the child,
+                protects when needed, redirects behaviour,
+                and helps parents stay connected.
+            </p>
+
+
+            <div class="idea-points">
+
+                <div class="idea-point">
+
+                    <h3>
+                        Understand
+                    </h3>
+
+                    <p>
+                        Understands activity,
+                        context and intent.
+                    </p>
+
+                </div>
+
+
+                <div class="idea-point">
+
+                    <h3>
+                        Remember
+                    </h3>
+
+                    <p>
+                        Learns interests,
+                        preferences and patterns.
+                    </p>
+
+                </div>
+
+
+                <div class="idea-point">
+
+                    <h3>
+                        Connect
+                    </h3>
+
+                    <p>
+                        Helps children and parents
+                        communicate better.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     04 — HOW IT WORKS
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content how-layout">
+
+        <div class="eyebrow">
+            04 / HOW IT WORKS
+        </div>
+
+        <div class="slide-number">
+            04 / 09
+        </div>
+
+
+        <div class="how-title">
+
+            <div class="line">
+                Understand →
+            </div>
+
+            <div class="line cyan">
+                Protect →
+            </div>
+
+            <div class="line">
+                Redirect →
+            </div>
+
+            <div class="line">
+                Connect
+            </div>
+
+        </div>
+
+
+        <div class="flow">
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    01
+                </div>
+
+                <h3>
+                    Understand
+                </h3>
+
+                <p>
+                    Activity, context
+                    and intent.
+                </p>
+
+            </div>
+
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    02
+                </div>
+
+                <h3>
+                    Protect
+                </h3>
+
+                <p>
+                    Identifies unsafe
+                    situations.
+                </p>
+
+            </div>
+
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    03
+                </div>
+
+                <h3>
+                    Redirect
+                </h3>
+
+                <p>
+                    Suggests healthier
+                    alternatives.
+                </p>
+
+            </div>
+
+
+            <div class="flow-arrow">
+                →
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">
+                    04
+                </div>
+
+                <h3>
+                    Connect
+                </h3>
+
+                <p>
+                    Keeps parents involved
+                    without constant control.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     05 — DIFFERENCE
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content compare-layout">
+
+        <div class="eyebrow">
+            05 / THE DIFFERENCE
+        </div>
+
+        <div class="slide-number">
+            05 / 09
+        </div>
+
+
+        <h2>
+            Fairi vs
+            <span class="cyan">traditional</span>
+            controls.
+        </h2>
+
+
+        <div class="comparison">
+
+            <div class="compare-column">
+
+                <h3>
+                    Traditional
+                </h3>
+
+                <ul>
+
+                    <li>
+                        Block websites
+                    </li>
+
+                    <li>
+                        Set fixed limits
+                    </li>
+
+                    <li>
+                        Send usage reports
+                    </li>
+
+                    <li>
+                        React after something happens
+                    </li>
+
+                    <li>
+                        Device-focused
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="compare-column fairi-column">
+
+                <h3>
+                    Fairi
+                </h3>
+
+                <ul>
+
+                    <li>
+                        Understand context
+                    </li>
+
+                    <li>
+                        Remember the child
+                    </li>
+
+                    <li>
+                        Redirect instead of simply blocking
+                    </li>
+
+                    <li>
+                        Adapt to behaviour
+                    </li>
+
+                    <li>
+                        Child-focused
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     06 — SCHOOL + PARENT CONNECTION
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content connection-layout">
+
+
+        <div class="connection-left">
+
+            <div class="eyebrow">
+                06 / FAIRI CONNECTS
+            </div>
+
+            <div class="slide-number">
+                06 / 09
+            </div>
+
+
+            <h2>
+                It remembers
+                <span class="cyan">the child.</span>
+            </h2>
+
+
+            <p>
+                Fairi can remember a child's interests,
+                understand changes in behaviour, and help
+                parents approach difficult situations
+                with more context.
+            </p>
+
+        </div>
+
+
+
+        <div class="conversation">
+
+            <div class="chat-label">
+                A SCHOOL DAY
+            </div>
+
+
+            <div class="chat-message fairi">
+
+                <span class="speaker">
+                    Fairi → Parent
+                </span>
+
+                “Aaj Aarav thoda upset lag raha hai.
+                School mein kuch hua hai shayad.
+                Waise usko drawing bahut pasand hai,
+                aur drawing karte time woh usually
+                relax karta hai.”
+
+            </div>
+
+
+            <div class="chat-message parent">
+
+                <span class="speaker">
+                    Parent → Fairi
+                </span>
+
+                “Tum usse thoda baat karwa sakti ho?
+                Agar woh comfortable ho toh mujhe bata de
+                ki school mein kya hua.”
+
+            </div>
+
+
+            <div class="chat-message fairi">
+
+                <span class="speaker">
+                    Fairi → Child
+                </span>
+
+                “Heyy Aarav, aaj school mein kuch hua kya?
+                Agar abhi baat nahi karni toh it's okay.
+                Main yahin hoon.”
+
+            </div>
+
+
+            <div class="chat-message child">
+
+                <span class="speaker">
+                    Child → Fairi
+                </span>
+
+                “Actually… meri drawing ko class mein
+                kisi ne funny bola.”
+
+            </div>
+
+
+            <div class="chat-message fairi">
+
+                <span class="speaker">
+                    Fairi → Child
+                </span>
+
+                “Ohh… that probably hurt.
+                Tum chaho toh mummy ko bata sakte ho.
+                I think woh tumhari side samjhegi.”
+
+            </div>
+
+
+            <div class="chat-message fairi">
+
+                <span class="speaker">
+                    Fairi → Parent
+                </span>
+
+                “Usne bataya ki class mein kisi ne
+                uski drawing ka mazaak banaya.
+                Aap pehle uski feelings ko validate karna,
+                phir calmly poochna ki exactly kya hua.”
+
+            </div>
+
+
+            <div class="chat-message parent">
+
+                <span class="speaker">
+                    Parent
+                </span>
+
+                “Okay. Main usse calmly baat karungi.”
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     07 — INTELLIGENCE
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content intelligence-layout">
+
+        <div class="eyebrow">
+            07 / THE INTELLIGENCE
+        </div>
+
+        <div class="slide-number">
+            07 / 09
+        </div>
+
+
+        <h2>
+            Fairi sees more than
+            <span class="cyan">screen time.</span>
+        </h2>
+
+
+        <div class="architecture">
+
+            <div class="arch-card">
+
+                <div class="icon">
+                    ◉
+                </div>
+
+                <h3>
+                    Context
+                </h3>
+
+                <p>
+                    Current app, activity,
+                    content and duration.
+                </p>
+
+            </div>
+
+
+            <div class="arch-card">
+
+                <div class="icon">
+                    ◎
+                </div>
+
+                <h3>
+                    Memory
+                </h3>
+
+                <p>
+                    Interests, preferences,
+                    interactions and patterns.
+                </p>
+
+            </div>
+
+
+            <div class="arch-card">
+
+                <div class="icon">
+                    ◇
+                </div>
+
+                <h3>
+                    AI Brain
+                </h3>
+
+                <p>
+                    Interprets intent and decides
+                    what response fits.
+                </p>
+
+            </div>
+
+
+            <div class="arch-card">
+
+                <div class="icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Action
+                </h3>
+
+                <p>
+                    Speak, redirect, protect
+                    or involve parents.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     08 — WHY DIFFERENT
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content difference-layout">
+
+        <div class="eyebrow">
+            08 / WHY FAIRI
+        </div>
+
+        <div class="slide-number">
+            08 / 09
+        </div>
+
+
+        <h2>
+            From
+            <span class="cyan">control</span>
+            to connection.
+        </h2>
+
+
+        <div class="four-pillars">
+
+            <div class="pillar">
+
+                <h3>
+                    Companion
+                </h3>
+
+                <p>
+                    A persistent character,
+                    not another settings screen.
+                </p>
+
+            </div>
+
+
+            <div class="pillar">
+
+                <h3>
+                    Context-aware
+                </h3>
+
+                <p>
+                    Responds to why something
+                    is happening.
+                </p>
+
+            </div>
+
+
+            <div class="pillar">
+
+                <h3>
+                    Personal
+                </h3>
+
+                <p>
+                    Memory helps Fairi understand
+                    each child.
+                </p>
+
+            </div>
+
+
+            <div class="pillar">
+
+                <h3>
+                    Human
+                </h3>
+
+                <p>
+                    Natural Hinglish,
+                    empathy and redirection.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     09 — TEAM
+===================================================== -->
+
+<section class="slide">
+
+    <div class="content team-layout">
+
+        <div class="eyebrow">
+            09 / TEAM SPELLBOUND
+        </div>
+
+        <div class="slide-number">
+            09 / 09
+        </div>
+
+
+        <h2>
+            Meet the
+            <span class="cyan">team.</span>
+        </h2>
+
+
+        <div class="team-grid">
+
+            <div class="team-member">
+                <h3>Pari Jain</h3>
+            </div>
+
+            <div class="team-member">
+                <h3>Samuel Thomas</h3>
+            </div>
+
+            <div class="team-member">
+                <h3>Deepak Sharma</h3>
+            </div>
+
+            <div class="team-member">
+                <h3>Riddhi Sharma</h3>
+            </div>
+
+            <div class="team-member">
+                <h3>Abdulla Malik</h3>
+            </div>
+
+            <div class="team-member">
+                <h3>Anshika Vats</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<div class="navigation">
+    ← → NAVIGATE
+</div>
+
+
+<div class="dots">
+
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const slides =
+    document.querySelectorAll(".slide");
+
+const dots =
+    document.querySelectorAll(".dot");
+
+const fairi =
+    document.getElementById("fairi");
+
+const display =
+    document.querySelector(".display");
+
+const displayHighlight =
+    document.querySelector(".display-highlight");
+
+const leftEye =
+    document.querySelector(".eye-left");
+
+const rightEye =
+    document.querySelector(".eye-right");
+
+const leftEyeHighlight =
+    document.querySelector(".eye-left-highlight");
+
+const rightEyeHighlight =
+    document.querySelector(".eye-right-highlight");
+
+const leftHand =
+    document.querySelector(".hand-left");
+
+const rightHand =
+    document.querySelector(".hand-right");
+
+
+let currentSlide = 0;
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+
+/* =========================================================
+   GLOBAL POINTER TRACKING
+========================================================= */
+
+window.addEventListener(
+    "pointermove",
+    (event) => {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+    }
+);
+
+
+/* =========================================================
+   CONTINUOUS FAIRI FACE TRACKING
+========================================================= */
+
+function animateFairi() {
+
+    const rect =
+        fairi.getBoundingClientRect();
+
+    const centerX =
+        rect.left + rect.width / 2;
+
+    const centerY =
+        rect.top + rect.height / 2;
+
+
+    const dx =
+        mouseX - centerX;
+
+    const dy =
+        mouseY - centerY;
+
+
+    /* -----------------------------------------------------
+       DISPLAY
+    ----------------------------------------------------- */
+
+    const displayX =
+        Math.max(
+            -18,
+            Math.min(
+                18,
+                dx * 0.22
+            )
+        );
+
+    const displayY =
+        Math.max(
+            -14,
+            Math.min(
+                6,
+                dy * 0.18
+            )
+        );
+
+
+    display.style.transform =
+        `translate(${displayX}px, ${displayY}px)`;
+
+
+    displayHighlight.style.transform =
+        `translate(${displayX}px, ${displayY}px)`;
+
+
+    /* -----------------------------------------------------
+       EYES
+    ----------------------------------------------------- */
+
+    const eyeX =
+        Math.max(
+            -48,
+            Math.min(
+                48,
+                dx * 0.60
+            )
+        );
+
+    const eyeY =
+        Math.max(
+            -40,
+            Math.min(
+                40,
+                dy * 0.52
+            )
+        );
+
+
+    leftEye.style.transform =
+        `translate(${eyeX}px, ${eyeY}px)`;
+
+    rightEye.style.transform =
+        `translate(${eyeX}px, ${eyeY}px)`;
+
+
+    leftEyeHighlight.style.transform =
+        `translate(${eyeX}px, ${eyeY}px)`;
+
+    rightEyeHighlight.style.transform =
+        `translate(${eyeX}px, ${eyeY}px)`;
+
+
+    requestAnimationFrame(
+        animateFairi
+    );
+
+}
+
+animateFairi();
+
+
+/* =========================================================
+   HAND ANIMATION
+========================================================= */
+
+let handDirection = 1;
+
+function animateHands() {
+
+    leftHand.animate(
+        [
+            {
+                transform:
+                    "translate(0px, 0px)"
+            },
+            {
+                transform:
+                    "translate(3px, -2px)"
+            }
+        ],
+        {
+            duration: 600,
+
+            direction:
+                handDirection === 1
+                    ? "normal"
+                    : "reverse",
+
+            easing: "ease-in-out",
+
+            fill: "forwards"
+        }
+    );
+
+
+    rightHand.animate(
+        [
+            {
+                transform:
+                    "translate(0px, 0px)"
+            },
+            {
+                transform:
+                    "translate(-3px, -2px)"
+            }
+        ],
+        {
+            duration: 600,
+
+            direction:
+                handDirection === 1
+                    ? "reverse"
+                    : "normal",
+
+            easing: "ease-in-out",
+
+            fill: "forwards"
+        }
+    );
+
+
+    handDirection *= -1;
+
+}
+
+setInterval(
+    animateHands,
+    600
+);
+
+
+/* =========================================================
+   BLINKING
+========================================================= */
+
+function blink() {
+
+    const leftPosition =
+        leftEye.style.transform ||
+        "translate(0px, 0px)";
+
+    const rightPosition =
+        rightEye.style.transform ||
+        "translate(0px, 0px)";
+
+
+    leftEye.animate(
+        [
+            {
+                transform:
+                    `${leftPosition} scaleY(1)`
+            },
+            {
+                transform:
+                    `${leftPosition} scaleY(.08)`
+            },
+            {
+                transform:
+                    `${leftPosition} scaleY(1)`
+            }
+        ],
+        {
+            duration: 165,
+            easing: "ease-in-out"
+        }
+    );
+
+
+    rightEye.animate(
+        [
+            {
+                transform:
+                    `${rightPosition} scaleY(1)`
+            },
+            {
+                transform:
+                    `${rightPosition} scaleY(.08)`
+            },
+            {
+                transform:
+                    `${rightPosition} scaleY(1)`
+            }
+        ],
+        {
+            duration: 165,
+            easing: "ease-in-out"
+        }
+    );
+
+
+    setTimeout(
+        blink,
+        2500 + Math.random() * 2500
+    );
+
+}
+
+setTimeout(
+    blink,
+    3000
+);
+
+
+/* =========================================================
+   FAIRI SIZE
+========================================================= */
+
+function updateFairiSize() {
+
+    fairi.classList.remove(
+        "big",
+        "small"
+    );
+
+
+    if (currentSlide === 0) {
+
+        fairi.classList.add(
+            "big"
+        );
+
+    } else {
+
+        fairi.classList.add(
+            "small"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW SLIDE
+========================================================= */
+
+function showSlide(index) {
+
+    if (index < 0) {
+        index = slides.length - 1;
+    }
+
+    if (index >= slides.length) {
+        index = 0;
+    }
+
+
+    currentSlide = index;
+
+
+    slides.forEach(
+        (slide, i) => {
+
+            slide.classList.toggle(
+                "active",
+                i === currentSlide
+            );
+
+        }
+    );
+
+
+    dots.forEach(
+        (dot, i) => {
+
+            dot.classList.toggle(
+                "active",
+                i === currentSlide
+            );
+
+        }
+    );
+
+
+    updateFairiSize();
+
+}
+
+
+/* =========================================================
+   NEXT / PREVIOUS
+========================================================= */
+
+function nextSlide() {
+
+    showSlide(
+        currentSlide + 1
+    );
+
+}
+
+function previousSlide() {
+
+    showSlide(
+        currentSlide - 1
+    );
+
+}
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key === " " ||
+            event.key === "PageDown"
+        ) {
+
+            event.preventDefault();
+
+            nextSlide();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft" ||
+            event.key === "PageUp"
+        ) {
+
+            event.preventDefault();
+
+            previousSlide();
+
+        }
+
+
+        if (event.key === "Home") {
+
+            showSlide(0);
+
+        }
+
+
+        if (event.key === "End") {
+
+            showSlide(
+                slides.length - 1
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DOT NAVIGATION
+========================================================= */
+
+dots.forEach(
+    (dot, index) => {
+
+        dot.addEventListener(
+            "click",
+            () => {
+
+                showSlide(index);
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLICK LEFT / RIGHT
+========================================================= */
+
+document.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target.closest(".dots")
+        ) {
+            return;
+        }
+
+
+        if (
+            event.clientX >
+            window.innerWidth / 2
+        ) {
+
+            nextSlide();
+
+        } else {
+
+            previousSlide();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateFairiSize();
+
+</script>
+
+</body>
+</html>
