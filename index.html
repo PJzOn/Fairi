@@ -1,1270 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meet Fairi</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-/* =========================================================
-   RESET
-========================================================= */
+    <meta
+        name="description"
+        content="Fairi — Guardian AI for the digital generation. Understand. Protect. Redirect. Connect."
+    >
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <meta name="theme-color" content="#050505">
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #050505;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    <title>FAIRI — Guardian AI for the Digital Generation</title>
 
-body {
-    cursor: default;
-}
-
-
-/* =========================================================
-   PRESENTATION
-========================================================= */
-
-.presentation {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-
-
-/* =========================================================
-   SLIDES
-========================================================= */
-
-.slide {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    padding: 0;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateX(30px);
-
-    transition:
-        opacity 0.45s ease,
-        transform 0.45s ease,
-        visibility 0.45s ease;
-
-    background:
-        radial-gradient(
-            circle at 70% 30%,
-            rgba(255,255,255,0.025),
-            transparent 35%
-        ),
-        #050505;
-}
-
-.slide.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-
-/* =========================================================
-   DECORATIVE CIRCLES
-========================================================= */
-
-.slide::before,
-.slide::after {
-    content: "";
-    position: absolute;
-
-    border: 1px solid rgba(255,255,255,0.055);
-    border-radius: 50%;
-
-    pointer-events: none;
-}
-
-.slide::before {
-    width: 350px;
-    height: 350px;
-
-    top: -180px;
-    right: -80px;
-}
-
-.slide::after {
-    width: 300px;
-    height: 300px;
-
-    bottom: -180px;
-    left: -100px;
-}
-
-
-/* =========================================================
-   CONTENT SAFE AREA
-   THIS IS WHAT FIXES THE TITLE OVERLAP
-========================================================= */
-
-.content {
-    position: relative;
-    z-index: 5;
-
-    width: 100%;
-    height: 100%;
-
-    padding:
-        7.5vh
-        5.3vw
-        7vh
-        5.3vw;
-}
-
-
-/* =========================================================
-   EYEBROW
-========================================================= */
-
-.eyebrow {
-    position: absolute;
-
-    top: 6vh;
-    left: 5.3vw;
-
-    font-size: 14px;
-    font-weight: 800;
-
-    letter-spacing: 4px;
-
-    color: #66e6ff;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   SLIDE NUMBER
-========================================================= */
-
-.slide-number {
-    position: absolute;
-
-    top: 6vh;
-    right: 4vw;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    letter-spacing: 3px;
-
-    color: rgba(255,255,255,0.35);
-}
-
-
-/* =========================================================
-   TYPOGRAPHY
-========================================================= */
-
-h1,
-h2,
-h3 {
-    font-weight: 900;
-}
-
-h1 {
-    font-size: clamp(80px, 10vw, 170px);
-    line-height: 0.86;
-    letter-spacing: -7px;
-}
-
-h2 {
-    font-size: clamp(52px, 6.5vw, 105px);
-    line-height: 0.9;
-    letter-spacing: -5px;
-}
-
-h3 {
-    font-size: 25px;
-}
-
-p {
-    font-size: 19px;
-    line-height: 1.5;
-    color: rgba(255,255,255,0.65);
-}
-
-.cyan {
-    color: #66e6ff;
-}
-
-
-/* =========================================================
-   FAIRI
-   ONE SINGLE LAYERED CHARACTER
-========================================================= */
-
-#fairi {
-    position: fixed;
-
-    width: 420px;
-    height: 420px;
-
-    right: 55px;
-    bottom: 30px;
-
-    z-index: 9999;
-
-    transform-origin: bottom right;
-
-    pointer-events: none;
-
-    transition:
-        transform 0.45s cubic-bezier(.22,1,.36,1);
-}
-
-
-/* Slide 1 */
-
-#fairi.big {
-    transform: scale(1);
-}
-
-
-/* Slides 2–9 */
-
-#fairi.small {
-    transform: scale(0.36);
-}
-
-
-/* =========================================================
-   FAIRI LAYERS
-========================================================= */
-
-.fairi-layer {
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: fill;
-
-    pointer-events: none;
-    user-select: none;
-}
-
-
-/* =========================================================
-   FAIRI FLOAT
-========================================================= */
-
-#fairi {
-    animation:
-        fairiFloat 1.2s ease-in-out infinite alternate;
-}
-
-@keyframes fairiFloat {
-
-    from {
-        margin-bottom: -5px;
-    }
-
-    to {
-        margin-bottom: 5px;
-    }
-}
-
-
-/* =========================================================
-   SLIDE 1 — MEET FAIRI
-========================================================= */
-
-.slide-one .content {
-    display: flex;
-    align-items: center;
-}
-
-.hero {
-    width: 62%;
-    margin-top: 2vh;
-}
-
-.hero h1 {
-    margin-top: 3vh;
-}
-
-.hero .subtitle {
-    max-width: 690px;
-    margin-top: 38px;
-
-    font-size: 22px;
-    line-height: 1.45;
-}
-
-
-/* =========================================================
-   SLIDE 2 — THE PROBLEM
-========================================================= */
-
-.problem-layout {
-
-    height: 100%;
-
-    display: grid;
-
-    grid-template-columns: 0.82fr 1.18fr;
-
-    gap: 5vw;
-
-    align-items: center;
-
-    padding-top: 5vh;
-}
-
-.problem-left {
-    padding-top: 3vh;
-}
-
-.problem-left h2 {
-    max-width: 620px;
-    margin-top: 30px;
-}
-
-.problem-left p {
-    max-width: 580px;
-    margin-top: 35px;
-    font-size: 20px;
-}
-
-.problem-right {
-    padding-top: 4vh;
-}
-
-.big-words {
-
-    font-size: clamp(65px, 7.6vw, 130px);
-
-    font-weight: 900;
-
-    line-height: 0.84;
-
-    letter-spacing: -5px;
-}
-
-.big-words span {
-    display: block;
-}
-
-.problem-bottom {
-
-    max-width: 620px;
-
-    margin-top: 38px;
-
-    font-size: 18px;
-
-    line-height: 1.5;
-
-    color: rgba(255,255,255,0.62);
-}
-
-
-/* =========================================================
-   SLIDE 3 — WHAT IS FAIRI
-========================================================= */
-
-.idea-layout {
-
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    padding-bottom: 4vh;
-}
-
-.idea-layout h2 {
-    max-width: 1000px;
-    margin-top: 30px;
-}
-
-.idea-layout > p {
-    max-width: 760px;
-    margin-top: 35px;
-    font-size: 21px;
-}
-
-.idea-points {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 18px;
-
-    max-width: 1000px;
-
-    margin-top: 55px;
-}
-
-.idea-point {
-
-    padding: 24px;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
-    background: rgba(255,255,255,0.025);
-}
-
-.idea-point h3 {
-    margin-bottom: 10px;
-}
-
-.idea-point p {
-    font-size: 16px;
-}
-
-
-/* =========================================================
-   SLIDE 4 — HOW IT WORKS
-========================================================= */
-
-.how-layout {
-
-    height: 100%;
-
-    padding-top: 7vh;
-}
-
-.how-title {
-
-    display: grid;
-
-    grid-template-columns: auto auto;
-
-    column-gap: 35px;
-
-    row-gap: 2px;
-
-    width: fit-content;
-
-    max-width: 100%;
-
-    margin-top: 55px;
-
-    font-size: clamp(55px, 6.6vw, 105px);
-
-    line-height: 0.86;
-
-    letter-spacing: -5px;
-
-    font-weight: 900;
-}
-
-.how-title .line {
-    white-space: nowrap;
-}
-
-.how-title .cyan {
-    color: #66e6ff;
-}
-
-
-/* cards */
-
-.flow {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 15px;
-
-    margin-top: 65px;
-}
-
-.flow-card {
-
-    width: 175px;
-    min-height: 175px;
-
-    padding: 23px;
-
-    border: 1px solid rgba(255,255,255,0.12);
-
-    background: rgba(255,255,255,0.025);
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-.flow-number {
-
-    font-size: 12px;
-
-    letter-spacing: 3px;
-
-    color: #66e6ff;
-
-    margin-bottom: 14px;
-}
-
-.flow-card h3 {
-
-    font-size: 22px;
-
-    margin-bottom: 9px;
-}
-
-.flow-card p {
-
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.flow-arrow {
-
-    font-size: 25px;
-
-    color: rgba(255,255,255,0.28);
-}
-
-
-/* =========================================================
-   SLIDE 5 — TRADITIONAL VS FAIRI
-========================================================= */
-
-.compare-layout {
-
-    height: 100%;
-
-    padding-top: 7vh;
-}
-
-.compare-layout h2 {
-    margin-top: 55px;
-}
-
-.comparison {
-
-    width: 92%;
-
-    margin-top: 55px;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    border-top: 1px solid rgba(255,255,255,0.15);
-}
-
-.compare-column {
-
-    padding: 28px 35px 25px;
-
-    min-height: 390px;
-}
-
-.compare-column:first-child {
-
-    border-right: 1px solid rgba(255,255,255,0.15);
-}
-
-.compare-column h3 {
-    margin-bottom: 20px;
-}
-
-.compare-column.fairi-column h3 {
-    color: #66e6ff;
-}
-
-.compare-column ul {
-    list-style: none;
-}
-
-.compare-column li {
-
-    padding: 14px 0;
-
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-
-    font-size: 17px;
-
-    color: rgba(255,255,255,0.62);
-}
-
-.compare-column.fairi-column li {
-    color: #fff;
-}
-
-
-/* =========================================================
-   SLIDE 6 — CONNECTION / SCHOOL
-========================================================= */
-
-.connection-layout {
-
-    height: 100%;
-
-    display: grid;
-
-    grid-template-columns: 0.8fr 1.2fr;
-
-    gap: 5vw;
-
-    align-items: center;
-
-    padding-top: 4vh;
-}
-
-.connection-left {
-    padding-top: 2vh;
-}
-
-.connection-left h2 {
-
-    margin-top: 30px;
-
-    max-width: 570px;
-}
-
-.connection-left > p {
-
-    margin-top: 32px;
-
-    max-width: 520px;
-
-    font-size: 18px;
-}
-
-
-/* conversation */
-
-.conversation {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-
-    max-height: 76vh;
-
-    overflow: hidden;
-}
-
-.chat-label {
-
-    font-size: 10px;
-
-    letter-spacing: 3px;
-
-    color: rgba(255,255,255,0.35);
-
-    margin-bottom: 4px;
-}
-
-.chat-message {
-
-    max-width: 590px;
-
-    padding: 12px 17px;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
-    background: rgba(255,255,255,0.035);
-
-    font-size: 14px;
-
-    line-height: 1.42;
-}
-
-.chat-message.parent {
-
-    margin-left: auto;
-
-    border-right: 3px solid #66e6ff;
-}
-
-.chat-message.fairi {
-
-    border-left: 3px solid #66e6ff;
-
-    background: rgba(102,230,255,0.035);
-}
-
-.chat-message.child {
-
-    margin-left: 25px;
-
-    color: rgba(255,255,255,0.78);
-}
-
-.speaker {
-
-    display: block;
-
-    font-size: 9px;
-
-    letter-spacing: 2px;
-
-    color: #66e6ff;
-
-    margin-bottom: 4px;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   SLIDE 7 — INTELLIGENCE
-========================================================= */
-
-.intelligence-layout {
-
-    height: 100%;
-
-    padding-top: 7vh;
-}
-
-.intelligence-layout h2 {
-    margin-top: 55px;
-}
-
-.architecture {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 18px;
-
-    margin-top: 60px;
-}
-
-.arch-card {
-
-    min-height: 220px;
-
-    padding: 27px;
-
-    border: 1px solid rgba(255,255,255,0.1);
-
-    background: rgba(255,255,255,0.025);
-}
-
-.arch-card .icon {
-
-    font-size: 31px;
-
-    margin-bottom: 23px;
-
-    color: #66e6ff;
-}
-
-.arch-card h3 {
-
-    font-size: 22px;
-
-    margin-bottom: 12px;
-}
-
-.arch-card p {
-
-    font-size: 15px;
-}
-
-
-/* =========================================================
-   SLIDE 8 — WHY DIFFERENT
-========================================================= */
-
-.difference-layout {
-
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    padding-bottom: 4vh;
-}
-
-.difference-layout h2 {
-    max-width: 900px;
-}
-
-.four-pillars {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 16px;
-
-    width: 850px;
-
-    max-width: 90%;
-
-    margin-top: 55px;
-}
-
-.pillar {
-
-    padding: 23px 27px;
-
-    border-left: 3px solid #66e6ff;
-
-    background: rgba(255,255,255,0.025);
-}
-
-.pillar h3 {
-    margin-bottom: 8px;
-}
-
-.pillar p {
-    font-size: 15px;
-}
-
-
-/* =========================================================
-   SLIDE 9 — TEAM
-========================================================= */
-
-.team-layout {
-
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-.team-layout h2 {
-    margin-top: 35px;
-    margin-bottom: 45px;
-}
-
-.team-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 20px;
-
-    max-width: 1000px;
-}
-
-.team-member {
-
-    padding: 20px 0;
-
-    border-top: 1px solid rgba(255,255,255,0.15);
-}
-
-.team-member h3 {
-    font-size: 21px;
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.navigation {
-
-    position: fixed;
-
-    bottom: 24px;
-    left: 34px;
-
-    z-index: 10000;
-
-    font-size: 12px;
-
-    letter-spacing: 2px;
-
-    color: rgba(255,255,255,0.3);
-}
-
-
-/* =========================================================
-   DOTS
-========================================================= */
-
-.dots {
-
-    position: fixed;
-
-    bottom: 24px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    z-index: 10000;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-}
-
-.dot {
-
-    width: 8px;
-    height: 8px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.25);
-
-    transition:
-        width 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.dot.active {
-
-    width: 30px;
-
-    border-radius: 20px;
-
-    background: #66e6ff;
-
-    box-shadow:
-        0 0 15px rgba(102,230,255,0.6);
-}
-
-
-/* =========================================================
-   STARTUP
-========================================================= */
-
-.fairi-startup {
-
-    animation:
-        fairiStartup 330ms cubic-bezier(.22,1,.36,1) forwards,
-        fairiFloat 1.2s ease-in-out 330ms infinite alternate;
-}
-
-@keyframes fairiStartup {
-
-    0% {
-        transform: scale(0);
-    }
-
-    55% {
-        transform: scale(1.08);
-    }
-
-    80% {
-        transform: scale(0.96);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1100px) {
-
-    #fairi.small {
-        transform: scale(0.28);
-    }
-
-    .flow {
-        transform: scale(0.82);
-        transform-origin: left center;
-    }
-
-    .architecture {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .problem-layout,
-    .connection-layout {
-        gap: 3vw;
-    }
-
-}
-
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-<div class="presentation">
+<header class="nav" id="nav">
+
+    <div class="container nav-inner">
+
+        <a href="#top" class="brand">
+            <span class="brand-mark"></span>
+            FAIRi
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="#about">About</a>
+
+            <a href="#features">Features</a>
+
+            <a href="#prototype">Prototype</a>
+
+            <a href="#roadmap">Roadmap</a>
+
+            <a href="#versions">Versions</a>
+
+            <a href="#download" class="nav-download">
+                Download
+            </a>
+
+        </nav>
+
+        <a
+            class="btn btn-primary mobile-download"
+            data-download
+            href="#"
+        >
+            Download APK
+        </a>
+
+    </div>
+
+</header>
+
+
+<main id="top">
 
 
 <!-- =====================================================
-     GLOBAL LAYERED FAIRI
-     DO NOT DUPLICATE THIS
+     HERO
 ===================================================== -->
 
-<div id="fairi" class="big fairi-startup">
+<section class="hero">
 
-    <img
-        class="fairi-layer body"
-        src="Fairi Visual Assets/fairi_body.png"
-    >
-
-    <img
-        class="fairi-layer hand-left"
-        src="Fairi Visual Assets/fairi_hand_left.png"
-    >
-
-    <img
-        class="fairi-layer hand-right"
-        src="Fairi Visual Assets/fairi_hand_right.png"
-    >
-
-    <img
-        class="fairi-layer display"
-        src="Fairi Visual Assets/fairi_display.png"
-    >
-
-    <img
-        class="fairi-layer display-highlight"
-        src="Fairi Visual Assets/fairi_highlight.png"
-    >
-
-    <img
-        class="fairi-layer eye-left"
-        src="Fairi Visual Assets/fairi_eye_left.png"
-    >
-
-    <img
-        class="fairi-layer eye-right"
-        src="Fairi Visual Assets/fairi_eye_right.png"
-    >
-
-    <img
-        class="fairi-layer body-highlight"
-        src="Fairi Visual Assets/fairi_body_highlight.png"
-    >
-
-    <img
-        class="fairi-layer eye-left-highlight"
-        src="Fairi Visual Assets/fairi_eye_left_highlight.png"
-    >
-
-    <img
-        class="fairi-layer eye-right-highlight"
-        src="Fairi Visual Assets/fairi_eye_right_highlight.png"
-    >
-
-</div>
+    <div class="container hero-grid">
 
 
+        <div class="hero-copy reveal">
 
-<!-- =====================================================
-     01 — MEET FAIRI
-===================================================== -->
-
-<section class="slide active slide-one">
-
-    <div class="content">
-
-        <div class="eyebrow">
-            01 / INTRODUCTION
-        </div>
-
-        <div class="slide-number">
-            01 / 09
-        </div>
-
-        <div class="hero">
+            <div class="eyebrow">
+                GUARDIAN AI FOR THE DIGITAL GENERATION
+            </div>
 
             <h1>
                 Meet<br>
                 <span class="cyan">Fairi.</span>
             </h1>
 
-            <p class="subtitle">
-                An AI-powered digital wellbeing companion
-                that understands the child behind the screen.
+            <p class="hero-sub">
+
+                A digital guardian we're building to understand,
+                protect, redirect and connect — not simply block.
+
+            </p>
+
+
+            <div class="btn-row">
+
+                <a
+                    class="btn btn-primary"
+                    data-download
+                    href="#"
+                >
+                    Download Fairi
+                </a>
+
+                <a
+                    class="btn btn-secondary"
+                    href="#about"
+                >
+                    Explore Fairi
+                </a>
+
+            </div>
+
+
+            <p class="hero-note">
+
+                Android prototype · v0.1 First Light · Under active development
+
             </p>
 
         </div>
 
+
+
+        <div class="hero-visual reveal">
+
+            <div class="hero-orbit"></div>
+
+
+            <div
+                class="fairi"
+                id="fairi"
+                aria-label="Animated Fairi character"
+            >
+
+                <img
+                    class="fairi-layer body"
+                    src="Fairi Visual Assets/fairi_body.png"
+                >
+
+                <img
+                    class="fairi-layer display"
+                    src="Fairi Visual Assets/fairi_display.png"
+                >
+
+                <img
+                    class="fairi-layer display-highlight"
+                    src="Fairi Visual Assets/fairi_highlight.png"
+                >
+
+                <img
+                    class="fairi-layer eye-left"
+                    src="Fairi Visual Assets/fairi_eye_left.png"
+                >
+
+                <img
+                    class="fairi-layer eye-right"
+                    src="Fairi Visual Assets/fairi_eye_right.png"
+                >
+
+                <img
+                    class="fairi-layer body-highlight"
+                    src="Fairi Visual Assets/fairi_body_highlight.png"
+                >
+
+                <img
+                    class="fairi-layer eye-left-highlight"
+                    src="Fairi Visual Assets/fairi_eye_left_highlight.png"
+                >
+
+                <img
+                    class="fairi-layer eye-right-highlight"
+                    src="Fairi Visual Assets/fairi_eye_right_highlight.png"
+                >
+
+                <!-- hands intentionally topmost -->
+
+                <img
+                    class="fairi-layer hand-left"
+                    src="Fairi Visual Assets/fairi_hand_left.png"
+                >
+
+                <img
+                    class="fairi-layer hand-right"
+                    src="Fairi Visual Assets/fairi_hand_right.png"
+                >
+
+                <span class="fairi-badge">
+                    ALIVE
+                </span>
+
+            </div>
+
+
+            <div class="hero-label">
+                A guardian, not another control panel
+            </div>
+
+        </div>
+
     </div>
 
 </section>
 
 
 
-<!-- =====================================================
-     02 — THE PROBLEM
-===================================================== -->
+<div class="status-strip">
 
-<section class="slide">
+    <div class="container">
 
-    <div class="content">
-
-        <div class="eyebrow">
-            02 / THE PROBLEM
-        </div>
-
-        <div class="slide-number">
-            02 / 09
-        </div>
-
-
-        <div class="problem-layout">
-
-            <div class="problem-left">
-
-                <h2>
-                    Parents can
-                    <span class="cyan">control</span>
-                    screens.
-                </h2>
-
-                <p>
-                    But controlling a device isn't the same
-                    as understanding a child.
-                </p>
-
-            </div>
-
-
-            <div class="problem-right">
-
-                <div class="big-words">
-
-                    <span>BLOCK.</span>
-                    <span>LIMIT.</span>
-                    <span>REPORT.</span>
-
-                </div>
-
-                <div class="problem-bottom">
-
-                    Traditional parental controls mainly react
-                    to <strong>what happens on the screen.</strong>
-                    They rarely understand
-                    <strong>why the child is doing it.</strong>
-
-                </div>
-
-            </div>
-
-        </div>
+        FAIRi v0.1 · FIRST LIGHT · Experimental Android prototype ·
+        Under active development
 
     </div>
 
-</section>
+</div>
 
 
 
 <!-- =====================================================
-     03 — WHAT IS FAIRI
+     ABOUT
 ===================================================== -->
 
-<section class="slide">
+<section class="section" id="about">
 
-    <div class="content">
+    <div class="container">
 
-        <div class="eyebrow">
-            03 / THE IDEA
-        </div>
+        <div class="section-head reveal">
 
-        <div class="slide-number">
-            03 / 09
-        </div>
-
-
-        <div class="idea-layout">
+            <div class="eyebrow">
+                01 / ABOUT
+            </div>
 
             <h2>
-                Fairi doesn't just
-                <span class="cyan">control.</span>
+                Understand the child behind the screen.
             </h2>
 
             <p>
-                Fairi understands context, remembers the child,
-                protects when needed, redirects behaviour,
-                and helps parents stay connected.
+                Fairi is a context-aware Guardian AI designed
+                to turn digital wellbeing from restriction into guidance.
             </p>
 
+        </div>
 
-            <div class="idea-points">
 
-                <div class="idea-point">
+        <div class="about-grid">
 
-                    <h3>
-                        Understand
-                    </h3>
 
-                    <p>
-                        Understands activity,
-                        context and intent.
-                    </p>
+            <div class="about-main reveal">
+
+                <p class="large-copy">
+
+                    Fairi is being developed as a persistent,
+                    child-friendly AI companion that lives alongside
+                    the child's digital experience.
+
+                </p>
+
+                <p>
+
+                    Instead of treating every digital interaction as
+                    a rule violation, Fairi is designed to understand
+                    context, communicate naturally and eventually guide
+                    the child toward safer and healthier choices.
+
+                </p>
+
+                <p>
+
+                    The central philosophy is simple:
+
+                </p>
+
+                <div class="quote">
+
+                    “Fairi doesn't just control what a child does
+                    on a device. It understands the child behind
+                    the screen.”
 
                 </div>
 
-
-                <div class="idea-point">
-
-                    <h3>
-                        Remember
-                    </h3>
-
-                    <p>
-                        Learns interests,
-                        preferences and patterns.
-                    </p>
-
-                </div>
+            </div>
 
 
-                <div class="idea-point">
+            <div class="about-side reveal">
 
-                    <h3>
-                        Connect
-                    </h3>
+                <div class="mini-card">
 
-                    <p>
-                        Helps children and parents
-                        communicate better.
-                    </p>
+                    <span>
+                        CORE PHILOSOPHY
+                    </span>
+
+                    <strong>
+                        UNDERSTAND
+                    </strong>
+
+                    <strong>
+                        PROTECT
+                    </strong>
+
+                    <strong>
+                        REDIRECT
+                    </strong>
+
+                    <strong>
+                        CONNECT
+                    </strong>
 
                 </div>
 
@@ -1279,130 +320,106 @@ p {
 
 
 <!-- =====================================================
-     04 — HOW IT WORKS
+     FEATURES
 ===================================================== -->
 
-<section class="slide">
+<section class="section" id="features">
 
-    <div class="content how-layout">
+    <div class="container">
 
-        <div class="eyebrow">
-            04 / HOW IT WORKS
-        </div>
+        <div class="section-head reveal">
 
-        <div class="slide-number">
-            04 / 09
-        </div>
-
-
-        <div class="how-title">
-
-            <div class="line">
-                Understand →
+            <div class="eyebrow">
+                02 / THE GUARDIAN AI IDEA
             </div>
 
-            <div class="line cyan">
-                Protect →
-            </div>
+            <h2>
+                More than an animated companion.
+            </h2>
 
-            <div class="line">
-                Redirect →
-            </div>
-
-            <div class="line">
-                Connect
-            </div>
+            <p>
+                These are the four principles Fairi is being
+                built around. They describe the product vision,
+                not a claim that every capability is already complete.
+            </p>
 
         </div>
 
 
-        <div class="flow">
+        <div class="feature-grid">
 
-            <div class="flow-card">
 
-                <div class="flow-number">
+            <article class="feature-card reveal">
+
+                <span class="feature-number">
                     01
-                </div>
+                </span>
 
                 <h3>
                     Understand
                 </h3>
 
                 <p>
-                    Activity, context
-                    and intent.
+                    Interpret digital context such as activity,
+                    duration, intent, preferences and relevant memory.
                 </p>
 
-            </div>
+            </article>
 
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <article class="feature-card reveal">
 
-
-            <div class="flow-card">
-
-                <div class="flow-number">
+                <span class="feature-number">
                     02
-                </div>
+                </span>
 
                 <h3>
                     Protect
                 </h3>
 
                 <p>
-                    Identifies unsafe
-                    situations.
+                    Identify situations that may eventually require
+                    safety guidance or intervention.
                 </p>
 
-            </div>
+            </article>
 
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <article class="feature-card reveal">
 
-
-            <div class="flow-card">
-
-                <div class="flow-number">
+                <span class="feature-number">
                     03
-                </div>
+                </span>
 
                 <h3>
                     Redirect
                 </h3>
 
                 <p>
-                    Suggests healthier
-                    alternatives.
+                    Instead of only saying “stop”, Fairi is designed
+                    to suggest a constructive alternative.
                 </p>
 
-            </div>
+            </article>
 
 
-            <div class="flow-arrow">
-                →
-            </div>
+            <article class="feature-card reveal">
 
-
-            <div class="flow-card">
-
-                <div class="flow-number">
+                <span class="feature-number">
                     04
-                </div>
+                </span>
 
                 <h3>
                     Connect
                 </h3>
 
                 <p>
-                    Keeps parents involved
-                    without constant control.
+                    Fairi is designed to act as a bridge between
+                    child and parent rather than replacing either one.
                 </p>
 
-            </div>
+            </article>
+
 
         </div>
 
@@ -1413,237 +430,127 @@ p {
 
 
 <!-- =====================================================
-     05 — DIFFERENCE
+     SCOPE
 ===================================================== -->
 
-<section class="slide">
+<section class="section" id="scope">
 
-    <div class="content compare-layout">
+    <div class="container">
 
-        <div class="eyebrow">
-            05 / THE DIFFERENCE
-        </div>
-
-        <div class="slide-number">
-            05 / 09
-        </div>
-
-
-        <h2>
-            Fairi vs
-            <span class="cyan">traditional</span>
-            controls.
-        </h2>
-
-
-        <div class="comparison">
-
-            <div class="compare-column">
-
-                <h3>
-                    Traditional
-                </h3>
-
-                <ul>
-
-                    <li>
-                        Block websites
-                    </li>
-
-                    <li>
-                        Set fixed limits
-                    </li>
-
-                    <li>
-                        Send usage reports
-                    </li>
-
-                    <li>
-                        React after something happens
-                    </li>
-
-                    <li>
-                        Device-focused
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <div class="compare-column fairi-column">
-
-                <h3>
-                    Fairi
-                </h3>
-
-                <ul>
-
-                    <li>
-                        Understand context
-                    </li>
-
-                    <li>
-                        Remember the child
-                    </li>
-
-                    <li>
-                        Redirect instead of simply blocking
-                    </li>
-
-                    <li>
-                        Adapt to behaviour
-                    </li>
-
-                    <li>
-                        Child-focused
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     06 — SCHOOL + PARENT CONNECTION
-===================================================== -->
-
-<section class="slide">
-
-    <div class="content connection-layout">
-
-
-        <div class="connection-left">
+        <div class="section-head reveal">
 
             <div class="eyebrow">
-                06 / FAIRI CONNECTS
+                03 / SCOPE
             </div>
-
-            <div class="slide-number">
-                06 / 09
-            </div>
-
 
             <h2>
-                It remembers
-                <span class="cyan">the child.</span>
+                Small prototype. Bigger Guardian AI vision.
             </h2>
 
-
             <p>
-                Fairi can remember a child's interests,
-                understand changes in behaviour, and help
-                parents approach difficult situations
-                with more context.
+                The prototype proves the interaction foundation.
+                The larger Guardian AI system is being built in stages.
             </p>
 
         </div>
 
 
-
-        <div class="conversation">
-
-            <div class="chat-label">
-                A SCHOOL DAY
-            </div>
+        <div class="scope-grid">
 
 
-            <div class="chat-message fairi">
+            <article class="scope-card current reveal">
 
-                <span class="speaker">
-                    Fairi → Parent
-                </span>
+                <div class="card-number">
+                    CURRENT
+                </div>
 
-                “Aaj Aarav thoda upset lag raha hai.
-                School mein kuch hua hai shayad.
-                Waise usko drawing bahut pasand hai,
-                aur drawing karte time woh usually
-                relax karta hai.”
+                <h3>
+                    What Fairi is today
+                </h3>
 
-            </div>
+                <p>
+                    An experimental Android companion that establishes
+                    the core Fairi interaction loop.
+                </p>
 
+                <ul class="scope-list">
 
-            <div class="chat-message parent">
+                    <li>
+                        Floating Fairi character
+                    </li>
 
-                <span class="speaker">
-                    Parent → Fairi
-                </span>
+                    <li>
+                        Voice interaction and listening
+                    </li>
 
-                “Tum usse thoda baat karwa sakti ho?
-                Agar woh comfortable ho toh mujhe bata de
-                ki school mein kya hua.”
+                    <li>
+                        AI-generated responses
+                    </li>
 
-            </div>
+                    <li>
+                        Text-to-speech
+                    </li>
 
+                    <li>
+                        Experimental live context / monitoring
+                    </li>
 
-            <div class="chat-message fairi">
+                    <li>
+                        Initial Fairi Brain architecture
+                    </li>
 
-                <span class="speaker">
-                    Fairi → Child
-                </span>
+                </ul>
 
-                “Heyy Aarav, aaj school mein kuch hua kya?
-                Agar abhi baat nahi karni toh it's okay.
-                Main yahin hoon.”
-
-            </div>
-
-
-            <div class="chat-message child">
-
-                <span class="speaker">
-                    Child → Fairi
-                </span>
-
-                “Actually… meri drawing ko class mein
-                kisi ne funny bola.”
-
-            </div>
+            </article>
 
 
-            <div class="chat-message fairi">
 
-                <span class="speaker">
-                    Fairi → Child
-                </span>
+            <article class="scope-card reveal">
 
-                “Ohh… that probably hurt.
-                Tum chaho toh mummy ko bata sakte ho.
-                I think woh tumhari side samjhegi.”
+                <div class="card-number">
+                    FUTURE
+                </div>
 
-            </div>
+                <h3>
+                    What Fairi is growing into
+                </h3>
 
+                <p>
+                    A mature context-aware Guardian AI that can guide,
+                    protect and connect without becoming a surveillance
+                    or punishment system.
+                </p>
 
-            <div class="chat-message fairi">
+                <ul class="scope-list">
 
-                <span class="speaker">
-                    Fairi → Parent
-                </span>
+                    <li>
+                        Reliable inappropriate-content detection
+                    </li>
 
-                “Usne bataya ki class mein kisi ne
-                uski drawing ka mazaak banaya.
-                Aap pehle uski feelings ko validate karna,
-                phir calmly poochna ki exactly kya hua.”
+                    <li>
+                        Real safety interventions
+                    </li>
 
-            </div>
+                    <li>
+                        Screen-time enforcement and restrictions
+                    </li>
 
+                    <li>
+                        Secure local/cloud memory architecture
+                    </li>
 
-            <div class="chat-message parent">
+                    <li>
+                        Parent ecosystem and contextual insights
+                    </li>
 
-                <span class="speaker">
-                    Parent
-                </span>
+                    <li>
+                        Advanced personalization and wider platform support
+                    </li>
 
-                “Okay. Main usse calmly baat karungi.”
+                </ul>
 
-            </div>
+            </article>
+
 
         </div>
 
@@ -1654,100 +561,508 @@ p {
 
 
 <!-- =====================================================
-     07 — INTELLIGENCE
+     HOW IT WORKS
 ===================================================== -->
 
-<section class="slide">
+<section class="section" id="how">
 
-    <div class="content intelligence-layout">
+    <div class="container">
 
-        <div class="eyebrow">
-            07 / THE INTELLIGENCE
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                04 / HOW IT WORKS
+            </div>
+
+            <h2>
+                Context becomes guidance.
+            </h2>
+
+            <p>
+                Fairi's intended intelligence loop combines
+                context, memory and AI before generating a response.
+            </p>
+
         </div>
 
-        <div class="slide-number">
-            07 / 09
-        </div>
+
+        <div class="steps">
 
 
-        <h2>
-            Fairi sees more than
-            <span class="cyan">screen time.</span>
-        </h2>
+            <div class="step reveal">
 
-
-        <div class="architecture">
-
-            <div class="arch-card">
-
-                <div class="icon">
-                    ◉
-                </div>
+                <span>
+                    01
+                </span>
 
                 <h3>
                     Context
                 </h3>
 
                 <p>
-                    Current app, activity,
-                    content and duration.
+                    Relevant activity, interaction and available
+                    context enter the Fairi system.
                 </p>
 
             </div>
 
 
-            <div class="arch-card">
+            <div class="step reveal">
 
-                <div class="icon">
-                    ◎
-                </div>
+                <span>
+                    02
+                </span>
 
                 <h3>
                     Memory
                 </h3>
 
                 <p>
-                    Interests, preferences,
-                    interactions and patterns.
+                    Relevant preferences and interactions can
+                    provide personalization.
                 </p>
 
             </div>
 
 
-            <div class="arch-card">
+            <div class="step reveal">
 
-                <div class="icon">
-                    ◇
-                </div>
+                <span>
+                    03
+                </span>
 
                 <h3>
                     AI Brain
                 </h3>
 
                 <p>
-                    Interprets intent and decides
-                    what response fits.
+                    The AI layer interprets the available information
+                    and generates an appropriate response.
                 </p>
 
             </div>
 
 
-            <div class="arch-card">
+            <div class="step reveal">
 
-                <div class="icon">
-                    ✦
+                <span>
+                    04
+                </span>
+
+                <h3>
+                    Response
+                </h3>
+
+                <p>
+                    Fairi communicates through voice, text,
+                    UI and eventually contextual actions.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DIFFERENCE
+===================================================== -->
+
+<section class="section" id="difference">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                05 / THE DIFFERENCE
+            </div>
+
+            <h2>
+                Restriction vs guidance.
+            </h2>
+
+            <p>
+                Fairi's intended approach is to add context and
+                companionship to the digital wellbeing experience.
+            </p>
+
+        </div>
+
+
+        <div class="compare-grid">
+
+
+            <div class="compare-card reveal">
+
+                <div class="compare-label">
+                    TRADITIONAL CONTROLS
+                </div>
+
+                <ul>
+
+                    <li>
+                        Fixed limits
+                    </li>
+
+                    <li>
+                        App blocking
+                    </li>
+
+                    <li>
+                        Permission controls
+                    </li>
+
+                    <li>
+                        Usage reports
+                    </li>
+
+                    <li>
+                        Notifications
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div class="compare-card highlight reveal">
+
+                <div class="compare-label">
+                    FAIRI — INTENDED APPROACH
+                </div>
+
+                <ul>
+
+                    <li>
+                        Contextual understanding
+                    </li>
+
+                    <li>
+                        Conversational interaction
+                    </li>
+
+                    <li>
+                        Personalization
+                    </li>
+
+                    <li>
+                        Memory
+                    </li>
+
+                    <li>
+                        Proactive redirection
+                    </li>
+
+                    <li>
+                        Parent connection
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CHILD / FAIRI / PARENT
+===================================================== -->
+
+<section class="section" id="connection">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                06 / THE RELATIONSHIP
+            </div>
+
+            <h2>
+                Child ↔ Fairi ↔ Parent.
+            </h2>
+
+            <p>
+                Fairi is intended to act as a bridge — not a replacement
+                for parents and not a surveillance layer.
+            </p>
+
+        </div>
+
+
+        <div class="connection-grid">
+
+
+            <div class="connection-card reveal">
+
+                <span>
+                    CHILD
+                </span>
+
+                <h3>
+                    Natural interaction
+                </h3>
+
+                <p>
+                    Voice, text and a friendly character create
+                    a child-facing experience rather than a settings page.
+                </p>
+
+            </div>
+
+
+            <div class="connection-arrow">
+                →
+            </div>
+
+
+            <div class="connection-card reveal">
+
+                <span>
+                    FAIRI
+                </span>
+
+                <h3>
+                    Contextual guidance
+                </h3>
+
+                <p>
+                    The intended system interprets context and decides
+                    how Fairi should respond.
+                </p>
+
+            </div>
+
+
+            <div class="connection-arrow">
+                →
+            </div>
+
+
+            <div class="connection-card reveal">
+
+                <span>
+                    PARENT
+                </span>
+
+                <h3>
+                    Useful insights
+                </h3>
+
+                <p>
+                    The long-term goal is to provide meaningful context
+                    rather than overwhelming parents with raw activity logs.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     INTELLIGENCE
+===================================================== -->
+
+<section class="section" id="intelligence">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                07 / INTELLIGENCE
+            </div>
+
+            <h2>
+                The character is only the beginning.
+            </h2>
+
+            <p>
+                Fairi's product value comes from the system around
+                the character: AI, context, memory and interaction.
+            </p>
+
+        </div>
+
+
+        <div class="intelligence-grid">
+
+
+            <div class="intel-card reveal">
+
+                <span>
+                    AI / LLM
+                </span>
+
+                <h3>
+                    Gemini
+                </h3>
+
+                <p>
+                    Used as the language and context-processing layer
+                    for response generation.
+                </p>
+
+            </div>
+
+
+            <div class="intel-card reveal">
+
+                <span>
+                    MEMORY
+                </span>
+
+                <h3>
+                    Local-first
+                </h3>
+
+                <p>
+                    The current MVP architecture uses local memory
+                    for relevant preferences and interactions.
+                </p>
+
+            </div>
+
+
+            <div class="intel-card reveal">
+
+                <span>
+                    VOICE
+                </span>
+
+                <h3>
+                    Listen → Think → Speak
+                </h3>
+
+                <p>
+                    Voice interaction is part of the prototype,
+                    with TTS quality still being refined.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROTOTYPE
+===================================================== -->
+
+<section class="section" id="prototype">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                08 / CURRENT PROTOTYPE
+            </div>
+
+            <h2>
+                v0.1 — First Light.
+            </h2>
+
+            <p>
+                The current build focuses on proving that Fairi can exist
+                as an interactive Guardian AI companion.
+            </p>
+
+        </div>
+
+
+        <div class="prototype-grid">
+
+
+            <div class="prototype-card reveal">
+
+                <div class="prototype-status">
+                    CURRENT
+                </div>
+
+                <ul>
+
+                    <li>
+                        Android floating Fairi companion
+                    </li>
+
+                    <li>
+                        Layered animated character
+                    </li>
+
+                    <li>
+                        Voice interaction and listening
+                    </li>
+
+                    <li>
+                        AI-generated conversational responses
+                    </li>
+
+                    <li>
+                        Text-to-speech output
+                    </li>
+
+                    <li>
+                        Experimental live context / monitoring
+                    </li>
+
+                    <li>
+                        Initial Fairi Brain interaction loop
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div class="prototype-warning reveal">
+
+                <div class="eyebrow">
+                    IMPORTANT
                 </div>
 
                 <h3>
-                    Action
+                    Prototype ≠ finished product.
                 </h3>
 
                 <p>
-                    Speak, redirect, protect
-                    or involve parents.
+                    v0.1 does not yet reliably filter inappropriate content,
+                    enforce device restrictions or provide the complete
+                    parent ecosystem.
+                </p>
+
+                <p>
+                    TTS pronunciation, hovering behaviour and deeper
+                    Guardian intelligence are still being developed.
                 </p>
 
             </div>
+
 
         </div>
 
@@ -1758,85 +1073,180 @@ p {
 
 
 <!-- =====================================================
-     08 — WHY DIFFERENT
+     VERSION HISTORY
 ===================================================== -->
 
-<section class="slide">
+<section class="section" id="versions">
 
-    <div class="content difference-layout">
+    <div class="container">
 
-        <div class="eyebrow">
-            08 / WHY FAIRI
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                09 / VERSION HISTORY
+            </div>
+
+            <h2>
+                Fairi, one version at a time.
+            </h2>
+
+            <p>
+                This timeline separates what exists today from what is planned
+                next. The cards below are generated from one editable version list.
+            </p>
+
         </div>
 
-        <div class="slide-number">
-            08 / 09
+
+        <div
+            class="version-grid"
+            id="version-list"
+        ></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ROADMAP
+===================================================== -->
+
+<section class="section" id="roadmap">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                10 / WHAT'S NEXT
+            </div>
+
+            <h2>
+                From companion to Guardian AI.
+            </h2>
+
+            <p>
+                Fairi grows in stages rather than pretending every
+                future capability already exists.
+            </p>
+
         </div>
 
 
-        <h2>
-            From
-            <span class="cyan">control</span>
-            to connection.
-        </h2>
+        <div class="roadmap">
 
 
-        <div class="four-pillars">
+            <div class="roadmap-item reveal">
 
-            <div class="pillar">
+                <span>
+                    01
+                </span>
 
-                <h3>
-                    Companion
-                </h3>
+                <div>
 
-                <p>
-                    A persistent character,
-                    not another settings screen.
-                </p>
+                    <h3>
+                        First Light
+                    </h3>
 
-            </div>
+                    <p>
+                        v0.1 — floating Fairi, voice interaction,
+                        AI responses, TTS and experimental context.
+                    </p>
 
-
-            <div class="pillar">
-
-                <h3>
-                    Context-aware
-                </h3>
-
-                <p>
-                    Responds to why something
-                    is happening.
-                </p>
+                </div>
 
             </div>
 
 
-            <div class="pillar">
+            <div class="roadmap-item reveal">
 
-                <h3>
-                    Personal
-                </h3>
+                <span>
+                    02
+                </span>
 
-                <p>
-                    Memory helps Fairi understand
-                    each child.
-                </p>
+                <div>
+
+                    <h3>
+                        Interaction Polish
+                    </h3>
+
+                    <p>
+                        Improve hovering, idle behaviour, TTS pronunciation,
+                        listening quality and Fairi responsiveness.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item reveal">
+
+                <span>
+                    03
+                </span>
+
+                <div>
+
+                    <h3>
+                        Guardian Intelligence
+                    </h3>
+
+                    <p>
+                        Strengthen contextual understanding, memory,
+                        personalization and intervention timing.
+                    </p>
+
+                </div>
 
             </div>
 
 
-            <div class="pillar">
+            <div class="roadmap-item reveal">
 
-                <h3>
-                    Human
-                </h3>
+                <span>
+                    04
+                </span>
 
-                <p>
-                    Natural Hinglish,
-                    empathy and redirection.
-                </p>
+                <div>
+
+                    <h3>
+                        Connected Guardian
+                    </h3>
+
+                    <p>
+                        Build reliable safety detection, content filtering,
+                        real restrictions and mature parent interaction.
+                    </p>
+
+                </div>
 
             </div>
+
+
+            <div class="roadmap-item reveal">
+
+                <span>
+                    05
+                </span>
+
+                <div>
+
+                    <h3>
+                        Long-term Vision
+                    </h3>
+
+                    <p>
+                        Secure memory, parent ecosystem and broader
+                        platform support.
+                    </p>
+
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -1847,52 +1257,104 @@ p {
 
 
 <!-- =====================================================
-     09 — TEAM
+     DOWNLOAD
 ===================================================== -->
 
-<section class="slide">
+<section class="section download-section" id="download">
 
-    <div class="content team-layout">
+    <div class="container">
 
-        <div class="eyebrow">
-            09 / TEAM SPELLBOUND
+        <div class="download-card reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    11 / GET FAIRI
+                </div>
+
+                <h2>
+                    Try the current prototype.
+                </h2>
+
+                <p>
+                    Download the experimental Android build and
+                    experience Fairi in her first stage of development.
+                </p>
+
+                <p class="download-note">
+                    Android · v0.1 First Light · Experimental · Under development
+                </p>
+
+            </div>
+
+
+            <a
+                class="btn btn-primary"
+                data-download
+                href="#"
+            >
+                Download APK
+            </a>
+
         </div>
 
-        <div class="slide-number">
-            09 / 09
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TEAM
+===================================================== -->
+
+<section class="section" id="team">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                12 / TEAM SPELLBOUND
+            </div>
+
+            <h2>
+                Built by Spellbound.
+            </h2>
+
         </div>
-
-
-        <h2>
-            Meet the
-            <span class="cyan">team.</span>
-        </h2>
 
 
         <div class="team-grid">
 
-            <div class="team-member">
-                <h3>Pari Jain</h3>
+            <div class="team-card reveal">
+                <strong>Pari Jain</strong>
+                <span>Team Leader</span>
             </div>
 
-            <div class="team-member">
-                <h3>Samuel Thomas</h3>
+            <div class="team-card reveal">
+                <strong>Samuel Thomas</strong>
+                <span>Team Member</span>
             </div>
 
-            <div class="team-member">
-                <h3>Deepak Sharma</h3>
+            <div class="team-card reveal">
+                <strong>Deepak Sharma</strong>
+                <span>Team Member</span>
             </div>
 
-            <div class="team-member">
-                <h3>Riddhi Sharma</h3>
+            <div class="team-card reveal">
+                <strong>Riddhi Sharma</strong>
+                <span>Team Member</span>
             </div>
 
-            <div class="team-member">
-                <h3>Abdulla Malik</h3>
+            <div class="team-card reveal">
+                <strong>Abdulla Malik</strong>
+                <span>Team Member</span>
             </div>
 
-            <div class="team-member">
-                <h3>Anshika Vats</h3>
+            <div class="team-card reveal">
+                <strong>Anshika Vats</strong>
+                <span>Team Member</span>
             </div>
 
         </div>
@@ -1902,546 +1364,29 @@ p {
 </section>
 
 
+</main>
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
 
-<div class="navigation">
-    ← → NAVIGATE
-</div>
 
+<footer class="footer">
 
-<div class="dots">
+    <div class="container footer-inner">
 
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+        <div>
+            <strong>FAIRi</strong>
+            · Guardian AI for the Digital Generation
+        </div>
 
-</div>
+        <div>
+            v0.1 · First Light
+        </div>
 
+    </div>
 
-</div>
+</footer>
 
 
-
-<script>
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const slides =
-    document.querySelectorAll(".slide");
-
-const dots =
-    document.querySelectorAll(".dot");
-
-const fairi =
-    document.getElementById("fairi");
-
-const display =
-    document.querySelector(".display");
-
-const displayHighlight =
-    document.querySelector(".display-highlight");
-
-const leftEye =
-    document.querySelector(".eye-left");
-
-const rightEye =
-    document.querySelector(".eye-right");
-
-const leftEyeHighlight =
-    document.querySelector(".eye-left-highlight");
-
-const rightEyeHighlight =
-    document.querySelector(".eye-right-highlight");
-
-const leftHand =
-    document.querySelector(".hand-left");
-
-const rightHand =
-    document.querySelector(".hand-right");
-
-
-let currentSlide = 0;
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-
-
-/* =========================================================
-   GLOBAL POINTER TRACKING
-========================================================= */
-
-window.addEventListener(
-    "pointermove",
-    (event) => {
-
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-
-    }
-);
-
-
-/* =========================================================
-   CONTINUOUS FAIRI FACE TRACKING
-========================================================= */
-
-function animateFairi() {
-
-    const rect =
-        fairi.getBoundingClientRect();
-
-    const centerX =
-        rect.left + rect.width / 2;
-
-    const centerY =
-        rect.top + rect.height / 2;
-
-
-    const dx =
-        mouseX - centerX;
-
-    const dy =
-        mouseY - centerY;
-
-
-    /* -----------------------------------------------------
-       DISPLAY
-    ----------------------------------------------------- */
-
-    const displayX =
-        Math.max(
-            -18,
-            Math.min(
-                18,
-                dx * 0.22
-            )
-        );
-
-    const displayY =
-        Math.max(
-            -14,
-            Math.min(
-                6,
-                dy * 0.18
-            )
-        );
-
-
-    display.style.transform =
-        `translate(${displayX}px, ${displayY}px)`;
-
-
-    displayHighlight.style.transform =
-        `translate(${displayX}px, ${displayY}px)`;
-
-
-    /* -----------------------------------------------------
-       EYES
-    ----------------------------------------------------- */
-
-    const eyeX =
-        Math.max(
-            -48,
-            Math.min(
-                48,
-                dx * 0.60
-            )
-        );
-
-    const eyeY =
-        Math.max(
-            -40,
-            Math.min(
-                40,
-                dy * 0.52
-            )
-        );
-
-
-    leftEye.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-    rightEye.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    leftEyeHighlight.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-    rightEyeHighlight.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    requestAnimationFrame(
-        animateFairi
-    );
-
-}
-
-animateFairi();
-
-
-/* =========================================================
-   HAND ANIMATION
-========================================================= */
-
-let handDirection = 1;
-
-function animateHands() {
-
-    leftHand.animate(
-        [
-            {
-                transform:
-                    "translate(0px, 0px)"
-            },
-            {
-                transform:
-                    "translate(3px, -2px)"
-            }
-        ],
-        {
-            duration: 600,
-
-            direction:
-                handDirection === 1
-                    ? "normal"
-                    : "reverse",
-
-            easing: "ease-in-out",
-
-            fill: "forwards"
-        }
-    );
-
-
-    rightHand.animate(
-        [
-            {
-                transform:
-                    "translate(0px, 0px)"
-            },
-            {
-                transform:
-                    "translate(-3px, -2px)"
-            }
-        ],
-        {
-            duration: 600,
-
-            direction:
-                handDirection === 1
-                    ? "reverse"
-                    : "normal",
-
-            easing: "ease-in-out",
-
-            fill: "forwards"
-        }
-    );
-
-
-    handDirection *= -1;
-
-}
-
-setInterval(
-    animateHands,
-    600
-);
-
-
-/* =========================================================
-   BLINKING
-========================================================= */
-
-function blink() {
-
-    const leftPosition =
-        leftEye.style.transform ||
-        "translate(0px, 0px)";
-
-    const rightPosition =
-        rightEye.style.transform ||
-        "translate(0px, 0px)";
-
-
-    leftEye.animate(
-        [
-            {
-                transform:
-                    `${leftPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${leftPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${leftPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
-
-    rightEye.animate(
-        [
-            {
-                transform:
-                    `${rightPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${rightPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${rightPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
-
-    setTimeout(
-        blink,
-        2500 + Math.random() * 2500
-    );
-
-}
-
-setTimeout(
-    blink,
-    3000
-);
-
-
-/* =========================================================
-   FAIRI SIZE
-========================================================= */
-
-function updateFairiSize() {
-
-    fairi.classList.remove(
-        "big",
-        "small"
-    );
-
-
-    if (currentSlide === 0) {
-
-        fairi.classList.add(
-            "big"
-        );
-
-    } else {
-
-        fairi.classList.add(
-            "small"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   SHOW SLIDE
-========================================================= */
-
-function showSlide(index) {
-
-    if (index < 0) {
-        index = slides.length - 1;
-    }
-
-    if (index >= slides.length) {
-        index = 0;
-    }
-
-
-    currentSlide = index;
-
-
-    slides.forEach(
-        (slide, i) => {
-
-            slide.classList.toggle(
-                "active",
-                i === currentSlide
-            );
-
-        }
-    );
-
-
-    dots.forEach(
-        (dot, i) => {
-
-            dot.classList.toggle(
-                "active",
-                i === currentSlide
-            );
-
-        }
-    );
-
-
-    updateFairiSize();
-
-}
-
-
-/* =========================================================
-   NEXT / PREVIOUS
-========================================================= */
-
-function nextSlide() {
-
-    showSlide(
-        currentSlide + 1
-    );
-
-}
-
-function previousSlide() {
-
-    showSlide(
-        currentSlide - 1
-    );
-
-}
-
-
-/* =========================================================
-   KEYBOARD
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (
-            event.key === "ArrowRight" ||
-            event.key === " " ||
-            event.key === "PageDown"
-        ) {
-
-            event.preventDefault();
-
-            nextSlide();
-
-        }
-
-
-        if (
-            event.key === "ArrowLeft" ||
-            event.key === "PageUp"
-        ) {
-
-            event.preventDefault();
-
-            previousSlide();
-
-        }
-
-
-        if (event.key === "Home") {
-
-            showSlide(0);
-
-        }
-
-
-        if (event.key === "End") {
-
-            showSlide(
-                slides.length - 1
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   DOT NAVIGATION
-========================================================= */
-
-dots.forEach(
-    (dot, index) => {
-
-        dot.addEventListener(
-            "click",
-            () => {
-
-                showSlide(index);
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   CLICK LEFT / RIGHT
-========================================================= */
-
-document.addEventListener(
-    "click",
-    (event) => {
-
-        if (
-            event.target.closest(".dots")
-        ) {
-            return;
-        }
-
-
-        if (
-            event.clientX >
-            window.innerWidth / 2
-        ) {
-
-            nextSlide();
-
-        } else {
-
-            previousSlide();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-updateFairiSize();
-
-</script>
+<script src="script.js" defer></script>
 
 </body>
 </html>

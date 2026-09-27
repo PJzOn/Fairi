@@ -1,1082 +1,753 @@
 /* =========================================================
-   FAIRI — ANIMATION ENGINE
-========================================================= */
+   FAIRI OFFICIAL WEBSITE
+   JAVASCRIPT
+   ========================================================= */
+
+/* =========================================================
+   APK DOWNLOAD LINK
+   CHANGE ONLY THIS ONE URL WHEN YOU RELEASE A NEW APK
+   ========================================================= */
+
+const APK_DOWNLOAD_URL = "https://drive.google.com/file/d/1Zd8UU7tzQ5MQBBw5JR6kgdtnXwbwW-Sm/view?usp=sharing";
 
 
 /* =========================================================
-   ELEMENTS
-========================================================= */
+   FAIRI VERSION HISTORY
+   Add a new object here when a new version is released.
+   The page will render it automatically.
+   ========================================================= */
 
-const slides =
-    document.querySelectorAll(".slide");
+const FAIRI_VERSIONS = [
+    {
+        version: "v0.1",
+        name: "First Light",
+        status: "CURRENT",
+        current: true,
+        description:
+            "The first experimental Android prototype — establishing Fairi as a floating Guardian AI companion.",
+        features: [
+            "Floating on-screen Fairi companion",
+            "Layered animated character",
+            "Voice interaction and listening",
+            "AI-generated conversational responses",
+            "Text-to-speech output",
+            "Experimental live context / monitoring",
+            "Initial Fairi Brain interaction loop"
+        ],
+        footnote:
+            "Experimental prototype. Reliable content filtering, device restrictions and the full parent ecosystem are not implemented yet."
+    },
 
-const dots =
-    document.querySelectorAll(".dot");
+    {
+        version: "v0.2",
+        name: "Awakening",
+        status: "PLANNED",
+        current: false,
+        description:
+            "A more natural Fairi presence with improved interaction quality and character responsiveness.",
+        features: [
+            "Improved hovering and idle animation",
+            "More natural TTS pronunciation",
+            "Better listening behavior",
+            "Improved AI response quality",
+            "More responsive Fairi interaction states"
+        ],
+        footnote:
+            "Development target — features may change as the prototype evolves."
+    },
 
-const fairi =
-    document.getElementById("fairi");
+    {
+        version: "v0.3",
+        name: "Growing",
+        status: "PLANNED",
+        current: false,
+        description:
+            "Fairi becomes more context-aware and personalized as the Guardian AI layer develops.",
+        features: [
+            "Stronger contextual understanding",
+            "Deeper personalization",
+            "Improved memory behavior",
+            "Better intervention timing",
+            "Additional Fairi interaction states"
+        ],
+        footnote:
+            "Development target — deeper safety intelligence remains under active development."
+    },
 
-const body =
-    document.querySelector(".body");
-
-const display =
-    document.querySelector(".display");
-
-const displayHighlight =
-    document.querySelector(".display-highlight");
-
-const leftEye =
-    document.querySelector(".eye-left");
-
-const rightEye =
-    document.querySelector(".eye-right");
-
-const bodyHighlight =
-    document.querySelector(".body-highlight");
-
-const leftEyeHighlight =
-    document.querySelector(".eye-left-highlight");
-
-const rightEyeHighlight =
-    document.querySelector(".eye-right-highlight");
-
-const leftHand =
-    document.querySelector(".hand-left");
-
-const rightHand =
-    document.querySelector(".hand-right");
+    {
+        version: "v1.0",
+        name: "FAIRI",
+        status: "VISION",
+        current: false,
+        description:
+            "The long-term Guardian AI vision: a mature context-aware companion built around guidance, safety and connection.",
+        features: [
+            "Reliable safety intelligence",
+            "Deeper device context",
+            "Secure memory and synchronization",
+            "Advanced personalization",
+            "Mature parent ecosystem",
+            "Expanded platform support"
+        ],
+        footnote:
+            "Long-term product vision, not a claim about the current prototype."
+    }
+];
 
 
 /* =========================================================
-   STATE
-========================================================= */
+   VERSION HISTORY RENDERER
+   ========================================================= */
 
-let currentSlide = 0;
+function renderVersionHistory(){
 
-let mouseX =
-    window.innerWidth / 2;
+    const container = document.getElementById("version-list");
 
-let mouseY =
-    window.innerHeight / 2;
+    if(!container){
+        return;
+    }
 
-let fairiTurningPage = false;
+    container.innerHTML = FAIRI_VERSIONS.map(version => `
+        <article class="version-card ${version.current ? "current" : ""} reveal">
 
-let fairiLookingDown = false;
+            <div class="version-top">
+                <span class="version-number">
+                    ${version.version}
+                </span>
 
-let handDirection = 1;
+                <span class="version-status">
+                    ${version.status}
+                </span>
+            </div>
+
+            <h3>
+                ${version.name}
+            </h3>
+
+            <p>
+                ${version.description}
+            </p>
+
+            <ul class="version-features">
+                ${version.features
+                    .map(feature => `<li>${feature}</li>`)
+                    .join("")}
+            </ul>
+
+            <div class="version-footnote">
+                ${version.footnote}
+            </div>
+
+        </article>
+    `).join("");
+
+    container
+        .querySelectorAll(".reveal")
+        .forEach(el => {
+
+            if(typeof revealObserver !== "undefined"){
+                revealObserver.observe(el);
+            }
+
+        });
+}
 
 
 /* =========================================================
-   POINTER TRACKING
-========================================================= */
+   DOWNLOAD LINKS
+   ========================================================= */
+
+document.querySelectorAll("[data-download]").forEach(link => {
+
+    link.href = APK_DOWNLOAD_URL;
+
+    /*
+       Prevent broken placeholder links.
+    */
+
+    if(
+        APK_DOWNLOAD_URL ===
+        "YOUR_APK_DOWNLOAD_LINK_HERE"
+    ){
+
+        link.addEventListener("click", event => {
+
+            event.preventDefault();
+
+            alert(
+                "The APK download link has not been added yet."
+            );
+
+        });
+
+    }
+
+});
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+const nav = document.getElementById("nav");
+
+function updateNav(){
+
+    if(!nav){
+        return;
+    }
+
+    nav.classList.toggle(
+        "scrolled",
+        window.scrollY > 20
+    );
+
+}
 
 window.addEventListener(
-    "pointermove",
-    (event) => {
-
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-
-    }
+    "scroll",
+    updateNav,
+    { passive:true }
 );
 
-
-/* =========================================================
-   CLAMP
-========================================================= */
-
-function clamp(value, min, max) {
-
-    return Math.max(
-        min,
-        Math.min(max, value)
-    );
-
-}
+updateNav();
 
 
 /* =========================================================
-   FAIRI FACE TRACKING
-========================================================= */
+   FAIRI ELEMENTS
+   ========================================================= */
 
-function animateFairi() {
+const fairi = document.getElementById("fairi");
 
-    if (!fairi) {
-        return;
-    }
+if(fairi){
 
+    const display =
+        fairi.querySelector(".display");
 
-    const rect =
-        fairi.getBoundingClientRect();
+    const displayHighlight =
+        fairi.querySelector(".display-highlight");
 
+    const leftEye =
+        fairi.querySelector(".eye-left");
 
-    const centerX =
-        rect.left +
-        rect.width / 2;
+    const rightEye =
+        fairi.querySelector(".eye-right");
 
+    const leftEyeHighlight =
+        fairi.querySelector(".eye-left-highlight");
 
-    const centerY =
-        rect.top +
-        rect.height / 2;
+    const rightEyeHighlight =
+        fairi.querySelector(".eye-right-highlight");
 
+    const leftHand =
+        fairi.querySelector(".hand-left");
 
-    const dx =
-        mouseX - centerX;
-
-
-    const dy =
-        mouseY - centerY;
-
-
-    let faceDX = dx;
-    let faceDY = dy;
-
-
-    /* -----------------------------------------
-       LOOK DOWN DURING PAGE TURN
-    ----------------------------------------- */
-
-    if (fairiLookingDown) {
-
-        faceDX = 0;
-        faceDY = 100;
-
-    }
+    const rightHand =
+        fairi.querySelector(".hand-right");
 
 
     /* =====================================================
-       DISPLAY
-       
-       Android values:
-       X = 0.22
-       Y = 0.18
-    ===================================================== */
+       AUTONOMOUS LOOKING
 
-    const displayX =
-        clamp(
-            faceDX * 0.22,
-            -18,
-            18
+       Fairi chooses where to look periodically.
+       This does NOT depend on the mouse cursor.
+       ===================================================== */
+
+    let targetFaceX = 0;
+    let targetFaceY = 0;
+
+    let currentFaceX = 0;
+    let currentFaceY = 0;
+
+
+    function chooseLook(){
+
+        const directions = [
+
+            { x:-1,   y:0 },
+
+            { x:0,    y:0 },
+
+            { x:1,    y:0 },
+
+            { x:-0.7, y:-0.35 },
+
+            { x:0.7,  y:-0.35 },
+
+            { x:0,    y:0.55 }
+
+        ];
+
+        const direction =
+            directions[
+                Math.floor(
+                    Math.random() *
+                    directions.length
+                )
+            ];
+
+        targetFaceX = direction.x;
+        targetFaceY = direction.y;
+
+
+        /*
+           Choose another look after
+           roughly 1.3–3.9 seconds.
+        */
+
+        const nextDelay =
+            1300 +
+            Math.random() * 2600;
+
+        setTimeout(
+            chooseLook,
+            nextDelay
         );
 
+    }
 
-    const displayY =
-        clamp(
-            faceDY * 0.18,
-            -14,
-            6
+
+    function animateFace(){
+
+        currentFaceX +=
+            (targetFaceX - currentFaceX) *
+            0.055;
+
+        currentFaceY +=
+            (targetFaceY - currentFaceY) *
+            0.055;
+
+
+        /*
+           Display moves less.
+           Eyes move more.
+        */
+
+        const displayX =
+            currentFaceX * 13;
+
+        const displayY =
+            currentFaceY * 9;
+
+
+        const eyeX =
+            currentFaceX * 30;
+
+        const eyeY =
+            currentFaceY * 24;
+
+
+        const displayTransform =
+            `translate3d(
+                ${displayX}px,
+                ${displayY}px,
+                0
+            )`;
+
+        const eyeTransform =
+            `translate3d(
+                ${eyeX}px,
+                ${eyeY}px,
+                0
+            )`;
+
+
+        if(display){
+            display.style.transform =
+                displayTransform;
+        }
+
+        if(displayHighlight){
+            displayHighlight.style.transform =
+                displayTransform;
+        }
+
+
+        if(leftEye){
+            leftEye.style.transform =
+                eyeTransform;
+        }
+
+        if(rightEye){
+            rightEye.style.transform =
+                eyeTransform;
+        }
+
+
+        if(leftEyeHighlight){
+            leftEyeHighlight.style.transform =
+                eyeTransform;
+        }
+
+        if(rightEyeHighlight){
+            rightEyeHighlight.style.transform =
+                eyeTransform;
+        }
+
+
+        requestAnimationFrame(
+            animateFace
         );
 
-
-    display.style.transform =
-        `translate(${displayX}px, ${displayY}px)`;
+    }
 
 
-    displayHighlight.style.transform =
-        `translate(${displayX}px, ${displayY}px)`;
+    chooseLook();
+    animateFace();
 
 
     /* =====================================================
-       EYES
-       
-       Android values:
-       X = 0.60
-       Y = 0.52
-    ===================================================== */
+       BLINKING
+       ===================================================== */
 
-    const eyeX =
-        clamp(
-            faceDX * 0.60,
-            -48,
-            48
+    function blink(){
+
+        const leftPosition =
+            leftEye.style.transform ||
+            "translate3d(0,0,0)";
+
+        const rightPosition =
+            rightEye.style.transform ||
+            "translate3d(0,0,0)";
+
+        const leftHighlightPosition =
+            leftEyeHighlight.style.transform ||
+            "translate3d(0,0,0)";
+
+        const rightHighlightPosition =
+            rightEyeHighlight.style.transform ||
+            "translate3d(0,0,0)";
+
+
+        const options = {
+            duration:155,
+            easing:"ease-in-out"
+        };
+
+
+        if(leftEye){
+
+            leftEye.animate(
+
+                [
+                    {
+                        transform:
+                            `${leftPosition} scaleY(1)`
+                    },
+
+                    {
+                        transform:
+                            `${leftPosition} scaleY(.08)`
+                    },
+
+                    {
+                        transform:
+                            `${leftPosition} scaleY(1)`
+                    }
+                ],
+
+                options
+
+            );
+
+        }
+
+
+        if(rightEye){
+
+            rightEye.animate(
+
+                [
+                    {
+                        transform:
+                            `${rightPosition} scaleY(1)`
+                    },
+
+                    {
+                        transform:
+                            `${rightPosition} scaleY(.08)`
+                    },
+
+                    {
+                        transform:
+                            `${rightPosition} scaleY(1)`
+                    }
+                ],
+
+                options
+
+            );
+
+        }
+
+
+        if(leftEyeHighlight){
+
+            leftEyeHighlight.animate(
+
+                [
+                    {
+                        transform:
+                            `${leftHighlightPosition} scaleY(1)`
+                    },
+
+                    {
+                        transform:
+                            `${leftHighlightPosition} scaleY(.08)`
+                    },
+
+                    {
+                        transform:
+                            `${leftHighlightPosition} scaleY(1)`
+                    }
+                ],
+
+                options
+
+            );
+
+        }
+
+
+        if(rightEyeHighlight){
+
+            rightEyeHighlight.animate(
+
+                [
+                    {
+                        transform:
+                            `${rightHighlightPosition} scaleY(1)`
+                    },
+
+                    {
+                        transform:
+                            `${rightHighlightPosition} scaleY(.08)`
+                    },
+
+                    {
+                        transform:
+                            `${rightHighlightPosition} scaleY(1)`
+                    }
+                ],
+
+                options
+
+            );
+
+        }
+
+
+        /*
+           Random blink interval:
+           approximately 2.6–5.6 seconds.
+        */
+
+        setTimeout(
+            blink,
+            2600 +
+            Math.random() * 3000
         );
 
-
-    const eyeY =
-        clamp(
-            faceDY * 0.52,
-            -40,
-            40
-        );
-
-
-    leftEye.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    rightEye.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    leftEyeHighlight.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    rightEyeHighlight.style.transform =
-        `translate(${eyeX}px, ${eyeY}px)`;
-
-
-    requestAnimationFrame(
-        animateFairi
-    );
-
-}
-
-
-requestAnimationFrame(
-    animateFairi
-);
-
-
-/* =========================================================
-   HAND ANIMATION
-========================================================= */
-
-function animateHands() {
-
-    if (!leftHand || !rightHand) {
-        return;
     }
 
 
-    leftHand
-        .getAnimations()
-        .forEach(
-            animation => animation.cancel()
-        );
-
-
-    rightHand
-        .getAnimations()
-        .forEach(
-            animation => animation.cancel()
-        );
-
-
-    leftHand.animate(
-        [
-            {
-                transform:
-                    "translate(0px, 0px)"
-            },
-            {
-                transform:
-                    "translate(3px, -2px)"
-            }
-        ],
-        {
-            duration: 600,
-
-            direction:
-                handDirection === 1
-                    ? "normal"
-                    : "reverse",
-
-            easing: "ease-in-out",
-
-            fill: "forwards"
-        }
-    );
-
-
-    rightHand.animate(
-        [
-            {
-                transform:
-                    "translate(0px, 0px)"
-            },
-            {
-                transform:
-                    "translate(-3px, -2px)"
-            }
-        ],
-        {
-            duration: 600,
-
-            direction:
-                handDirection === 1
-                    ? "normal"
-                    : "reverse",
-
-            easing: "ease-in-out",
-
-            fill: "forwards"
-        }
-    );
-
-
-    handDirection *= -1;
-
-}
-
-
-setInterval(
-    animateHands,
-    600
-);
-
-
-/* =========================================================
-   BLINKING
-========================================================= */
-
-function blink() {
-
-    if (
-        !leftEye ||
-        !rightEye
-    ) {
-        return;
-    }
-
-
-    const leftPosition =
-        leftEye.style.transform ||
-        "translate(0px, 0px)";
-
-
-    const rightPosition =
-        rightEye.style.transform ||
-        "translate(0px, 0px)";
-
-
-    const leftHighlightPosition =
-        leftEyeHighlight.style.transform ||
-        "translate(0px, 0px)";
-
-
-    const rightHighlightPosition =
-        rightEyeHighlight.style.transform ||
-        "translate(0px, 0px)";
-
-
-    leftEye.animate(
-        [
-            {
-                transform:
-                    `${leftPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${leftPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${leftPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
-
-    rightEye.animate(
-        [
-            {
-                transform:
-                    `${rightPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${rightPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${rightPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
-
-    leftEyeHighlight.animate(
-        [
-            {
-                transform:
-                    `${leftHighlightPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${leftHighlightPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${leftHighlightPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
-
-    rightEyeHighlight.animate(
-        [
-            {
-                transform:
-                    `${rightHighlightPosition} scaleY(1)`
-            },
-            {
-                transform:
-                    `${rightHighlightPosition} scaleY(.08)`
-            },
-            {
-                transform:
-                    `${rightHighlightPosition} scaleY(1)`
-            }
-        ],
-        {
-            duration: 165,
-            easing: "ease-in-out"
-        }
-    );
-
+    /*
+       First blink.
+    */
 
     setTimeout(
         blink,
-        2500 +
-        Math.random() * 2500
-    );
-
-}
-
-
-setTimeout(
-    blink,
-    3000
-);
-
-
-/* =========================================================
-   FAIRI SIZE
-========================================================= */
-
-function updateFairiSize() {
-
-    if (!fairi) {
-        return;
-    }
-
-
-    fairi.classList.remove(
-        "big",
-        "small"
+        2400
     );
 
 
-    if (currentSlide === 0) {
+    /* =====================================================
+       HAND MICRO-MOVEMENT
+       ===================================================== */
 
-        fairi.classList.add(
-            "big"
-        );
-
-    } else {
-
-        fairi.classList.add(
-            "small"
-        );
-
-    }
-
-}
+    let handDirection = 1;
 
 
-/* =========================================================
-   SHOW SLIDE
-========================================================= */
+    function animateHands(){
 
-function showSlide(index) {
+        if(leftHand){
 
-    if (index < 0) {
+            leftHand.animate(
 
-        index =
-            slides.length - 1;
+                [
+                    {
+                        transform:
+                            "translate3d(0,0,0)"
+                    },
 
-    }
+                    {
+                        transform:
+                            "translate3d(3px,-2px,0)"
+                    }
+                ],
 
+                {
+                    duration:900,
 
-    if (index >= slides.length) {
+                    direction:
+                        handDirection === 1
+                            ? "normal"
+                            : "reverse",
 
-        index = 0;
+                    easing:"ease-in-out",
 
-    }
+                    fill:"forwards"
+                }
 
-
-    currentSlide = index;
-
-
-    slides.forEach(
-        (slide, i) => {
-
-            slide.classList.toggle(
-                "active",
-                i === currentSlide
             );
 
         }
-    );
 
 
-    dots.forEach(
-        (dot, i) => {
+        if(rightHand){
 
-            dot.classList.toggle(
-                "active",
-                i === currentSlide
+            rightHand.animate(
+
+                [
+                    {
+                        transform:
+                            "translate3d(0,0,0)"
+                    },
+
+                    {
+                        transform:
+                            "translate3d(-3px,-2px,0)"
+                    }
+                ],
+
+                {
+                    duration:900,
+
+                    direction:
+                        handDirection === 1
+                            ? "reverse"
+                            : "normal",
+
+                    easing:"ease-in-out",
+
+                    fill:"forwards"
+                }
+
             );
 
         }
-    );
 
 
-    updateFairiSize();
-
-}
-
-
-/* =========================================================
-   NEXT SLIDE
-========================================================= */
-
-function nextSlide() {
-
-    showSlide(
-        currentSlide + 1
-    );
-
-}
-
-
-/* =========================================================
-   PREVIOUS SLIDE
-========================================================= */
-
-function previousSlide() {
-
-    showSlide(
-        currentSlide - 1
-    );
-
-}
-
-
-/* =========================================================
-   WAIT
-========================================================= */
-
-function wait(ms) {
-
-    return new Promise(
-        resolve =>
-            setTimeout(resolve, ms)
-    );
-
-}
-
-
-/* =========================================================
-   PAGE TURN
-       
-   IMPORTANT:
-   Fairi's layout is FROZEN while the page changes.
-
-   We DO NOT let .big/.small visibly reposition
-   Fairi during the transition.
-========================================================= */
-
-async function fairiTurnPage() {
-
-    if (fairiTurningPage) {
-        return;
-    }
-
-
-    if (!fairi) {
-        return;
-    }
-
-
-    fairiTurningPage = true;
-
-
-    /* -----------------------------------------
-       Disable interaction
-    ----------------------------------------- */
-
-    fairi.classList.add(
-        "turning-active"
-    );
-
-
-    /* -----------------------------------------
-       Stop normal float
-    ----------------------------------------- */
-
-    const oldAnimation =
-        fairi.style.animation;
-
-    fairi.style.animation = "none";
-
-
-    /* -----------------------------------------
-       Stop hand animation
-    ----------------------------------------- */
-
-    leftHand
-        ?.getAnimations()
-        .forEach(
-            animation =>
-                animation.cancel()
-        );
-
-
-    rightHand
-        ?.getAnimations()
-        .forEach(
-            animation =>
-                animation.cancel()
-        );
-
-
-    /* -----------------------------------------
-       Remember ORIGINAL visual state
-    ----------------------------------------- */
-
-    const originalTransform =
-        fairi.style.transform;
-
-
-    const startRect =
-        fairi.getBoundingClientRect();
-
-
-    const startCenterX =
-        startRect.left +
-        startRect.width / 2;
-
-
-    const startCenterY =
-        startRect.top +
-        startRect.height / 2;
-
-
-    /* -----------------------------------------
-       NAVIGATION DOT TARGET
-    ----------------------------------------- */
-
-    const targetCenterX =
-        window.innerWidth / 2;
-
-
-    const targetCenterY =
-        window.innerHeight -
-        35;
-
-
-    const moveX =
-        targetCenterX -
-        startCenterX;
-
-
-    const moveY =
-        targetCenterY -
-        startCenterY;
-
-
-    /* -----------------------------------------
-       LOOK DOWN
-    ----------------------------------------- */
-
-    fairiLookingDown = true;
-
-
-    await wait(250);
-
-
-    /* -----------------------------------------
-       HAND REACH
-    ----------------------------------------- */
-
-    if (leftHand) {
-
-        leftHand.style.transform =
-            "translate(-2px, 18px)";
+        handDirection *= -1;
 
     }
 
-
-    await wait(200);
-
-
-    /* -----------------------------------------
-       MOVE FAIRI TO DOTS
-       
-       ONLY TRANSFORM CHANGES.
-       SIZE AND POSITION DO NOT.
-    ----------------------------------------- */
-
-    const moveAnimation =
-        fairi.animate(
-            [
-                {
-                    transform:
-                        originalTransform ||
-                        "translate(0px, 0px)"
-                },
-                {
-                    transform:
-                        `translate(
-                            ${moveX}px,
-                            ${moveY}px
-                        )`
-                }
-            ],
-            {
-                duration: 600,
-
-                easing:
-                    "cubic-bezier(.22,1,.36,1)",
-
-                fill: "forwards"
-            }
-        );
-
-
-    await moveAnimation.finished;
-
-
-    /* -----------------------------------------
-       HOLD EXACTLY AT DOTS
-    ----------------------------------------- */
-
-    fairi.getAnimations()
-        .forEach(
-            animation =>
-                animation.cancel()
-        );
-
-
-    fairi.style.transform =
-        `translate(
-            ${moveX}px,
-            ${moveY}px
-        )`;
-
-
-    /* -----------------------------------------
-       NOW CHANGE THE SLIDE
-       
-       Fairi is already at the dots.
-       The new .small/.big state happens
-       underneath the frozen transform.
-    ----------------------------------------- */
-
-    nextSlide();
-
-
-    /* -----------------------------------------
-       WAIT FOR LAYOUT TO FINISH
-    ----------------------------------------- */
-
-    await new Promise(
-        resolve => {
-
-            requestAnimationFrame(
-                () => {
-
-                    requestAnimationFrame(
-                        resolve
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* -----------------------------------------
-       FIND WHERE NEW FAIRI WOULD BE
-    ----------------------------------------- */
-
-    const newRect =
-        fairi.getBoundingClientRect();
-
-
-    const newCenterX =
-        newRect.left +
-        newRect.width / 2;
-
-
-    const newCenterY =
-        newRect.top +
-        newRect.height / 2;
-
-
-    /* -----------------------------------------
-       Calculate correction.
-       
-       We want Fairi's CENTER to remain
-       exactly at the dots.
-    ----------------------------------------- */
-
-    const correctionX =
-        targetCenterX -
-        newCenterX;
-
-
-    const correctionY =
-        targetCenterY -
-        newCenterY;
-
-
-    /* -----------------------------------------
-       Combine the old movement with the
-       correction required by the new layout.
-    ----------------------------------------- */
-
-    fairi.style.transform =
-        `translate(
-            ${correctionX}px,
-            ${correctionY}px
-        )`;
-
-
-    await wait(50);
-
-
-    /* -----------------------------------------
-       RETURN TO NEW NORMAL POSITION
-    ----------------------------------------- */
-
-    const returnAnimation =
-        fairi.animate(
-            [
-                {
-                    transform:
-                        `translate(
-                            ${correctionX}px,
-                            ${correctionY}px
-                        )`
-                },
-                {
-                    transform:
-                        "translate(0px, 0px)"
-                }
-            ],
-            {
-                duration: 600,
-
-                easing:
-                    "cubic-bezier(.22,1,.36,1)",
-
-                fill: "forwards"
-            }
-        );
-
-
-    await returnAnimation.finished;
-
-
-    /* -----------------------------------------
-       CLEAN UP
-    ----------------------------------------- */
-
-    fairi.getAnimations()
-        .forEach(
-            animation =>
-                animation.cancel()
-        );
-
-
-    fairi.style.transform = "";
-
-    fairi.style.animation =
-        oldAnimation;
-
-
-    fairi.classList.remove(
-        "turning-active"
-    );
-
-
-    fairiLookingDown = false;
-
-
-    /* -----------------------------------------
-       RESET HAND
-    ----------------------------------------- */
-
-    if (leftHand) {
-
-        leftHand.style.transform = "";
-
-    }
-
-
-    if (rightHand) {
-
-        rightHand.style.transform = "";
-
-    }
-
-
-    fairiTurningPage = false;
-
-
-    /* -----------------------------------------
-       Restart hands
-    ----------------------------------------- */
 
     animateHands();
 
+
+    setInterval(
+        animateHands,
+        900
+    );
+
+
+    /* =====================================================
+       TOUCH / POINTER INTERACTION
+       ===================================================== */
+
+    fairi.addEventListener(
+        "pointerdown",
+        () => {
+
+            /*
+               Fairi looks slightly upward
+               when touched.
+            */
+
+            targetFaceX = 0;
+            targetFaceY = -0.75;
+
+
+            fairi.animate(
+
+                [
+                    {
+                        transform:
+                            "translate3d(0,0,0) scale(1)"
+                    },
+
+                    {
+                        transform:
+                            "translate3d(0,-8px,0) scale(1.025)"
+                    },
+
+                    {
+                        transform:
+                            "translate3d(0,0,0) scale(1)"
+                    }
+                ],
+
+                {
+                    duration:500,
+
+                    easing:
+                        "cubic-bezier(.22,1,.36,1)"
+                }
+
+            );
+
+        }
+    );
+
 }
 
 
 /* =========================================================
-   KEYBOARD NAVIGATION
-========================================================= */
+   SCROLL REVEAL
+   ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    (event) => {
+const revealObserver =
+    new IntersectionObserver(
 
-        if (
-            event.key === "ArrowRight" ||
-            event.key === " " ||
-            event.key === "PageDown"
-        ) {
+        entries => {
 
-            event.preventDefault();
+            entries.forEach(entry => {
 
-            fairiTurnPage();
+                if(entry.isIntersecting){
 
-        }
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
+                    revealObserver.unobserve(
+                        entry.target
+                    );
 
-        if (
-            event.key === "ArrowLeft" ||
-            event.key === "PageUp"
-        ) {
-
-            event.preventDefault();
-
-            previousSlide();
-
-        }
-
-
-        if (event.key === "Home") {
-
-            showSlide(0);
-
-        }
-
-
-        if (event.key === "End") {
-
-            showSlide(
-                slides.length - 1
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   DOT NAVIGATION
-========================================================= */
-
-dots.forEach(
-    (dot, index) => {
-
-        dot.addEventListener(
-            "click",
-            (event) => {
-
-                event.stopPropagation();
-
-                if (fairiTurningPage) {
-                    return;
                 }
 
-                showSlide(index);
+            });
 
-            }
-        );
+        },
 
-    }
-);
+        {
+            threshold:.12
+        }
+
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(el => {
+
+        revealObserver.observe(el);
+
+    });
 
 
 /* =========================================================
-   PAGE CLICK NAVIGATION
-========================================================= */
+   RENDER VERSION HISTORY
+   ========================================================= */
 
-document.addEventListener(
-    "click",
-    (event) => {
-
-        /* Ignore dots */
-
-        if (
-            event.target.closest(".dots")
-        ) {
-
-            return;
-
-        }
-
-
-        /* Ignore buttons / links / controls */
-
-        if (
-            event.target.closest("button") ||
-            event.target.closest("a") ||
-            event.target.closest("input") ||
-            event.target.closest("select") ||
-            event.target.closest("textarea")
-        ) {
-
-            return;
-
-        }
-
-
-        if (fairiTurningPage) {
-            return;
-        }
-
-
-        if (
-            event.clientX >
-            window.innerWidth / 2
-        ) {
-
-            fairiTurnPage();
-
-        } else {
-
-            previousSlide();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-updateFairiSize();
-
-animateHands();
+renderVersionHistory();
